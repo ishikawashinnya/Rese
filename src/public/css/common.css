@@ -2,6 +2,7 @@ body {
     height: 100vh;
     width: 100vw;
     background-color: #eeeeee;
+    position: relative;
 
 }
 
@@ -10,7 +11,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: yellow;
+    background-color: #eeeeee;
     margin: 0 auto;
 }
 
@@ -147,5 +148,5 @@ header {
 main {
     max-width: 1280px;
     margin: 0 auto;
-    background-color: lightgreen;
+    background-color: #eeeeee;
 }
