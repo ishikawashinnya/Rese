@@ -12,7 +12,9 @@
         </div>
         
         <div class="thanks__link">
-            <a href="" class="link__btn">ログインする</a>
+            <a class="link__btn" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                ログインする
+            </a>
         </div>
     </div>
     
