@@ -8,11 +8,11 @@
 <div class="auth__content">
     <div class="auth__card">
         <div class="card__header">
-            <p class="card__header-ttl">Registration</p>
+            <p class="card__header-ttl">Login</p>
         </div>
         
         <div class="auth__content-form">
-            <form class="form" action="/register" method="post">
+            <form class="form" action="/login" method="post">
                 @csrf
                 <div class="form__group-content">
                     <div class="form__input--text">

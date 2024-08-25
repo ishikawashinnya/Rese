@@ -20,14 +20,28 @@
                 <nav class="menu__content">
                     <ul class="menu__list">
                         <li class="menu__item">
-                            <a class="menu__item-link" href="#">Home</a>
+                            <a class="menu__item-link" href="/">Home</a>
                         </li>
-                        <li class="menu__item">
-                            <a class="menu__item-link" href="#">Logout</a>
-                        </li>
-                        <li class="menu__item">
-                            <a class="menu__item-link" href="#">Mypage</a>
-                        </li>
+                        @if (Auth::check())
+                            <li class="menu__item">
+                                <form id="logout-form" action="/logout" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                                <a class="menu__item-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    Logout
+                                </a>
+                            </li>
+                            <li class="menu__item">
+                                <a class="menu__item-link" href="/mypage">Mypage</a>
+                            </li>
+                        @else
+                            <li class="menu__item">
+                                <a class="menu__item-link" href="/register">Register</a>
+                            </li>
+                            <li class="menu__item">
+                                <a class="menu__item-link" href="/login">Login</a>                      
+                            </li>
+                        @endif
                     </ul>
                 </nav>
                 <!--ここまでメニュー-->

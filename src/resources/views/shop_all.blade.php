@@ -11,7 +11,7 @@
             <select name="area" class="search__form-select">
                 <option value="">All area</option>
                 @foreach($areas as $area)
-                    <option value="{{ $area->id }}">{{ $area->name }}</option>
+                    <option value="{{ $area->id }}" {{ request('area') == $area->id ? 'selected' : '' }}>{{ $area->name }}</option>
                 @endforeach
             </select>
         </label>
@@ -20,17 +20,17 @@
             <select name="genre" class="search__form-select">
                 <option value="">All genre</option>
                 @foreach($genres as $genre)
-                    <option value="{{ $genre->id }}">{{ $genre->name }}</option>
+                    <option value="{{ $genre->id }}" {{ request('genre') == $genre->id ? 'selected' : '' }}>{{ $genre->name }}</option>
                 @endforeach 
             </select>
         </label>
 
         <div class="text__search">
-            <div class="search__button">
-                <button type="submit">検索</button>
+            <div class="search__icon">
+                <button type="submit" class="search__btn">検索</button>
             </div>
             <label class="text__search-label">
-                <input type="text" name="word" class="text__search-input" placeholder="Search ..." value="">
+                <input type="text" name="word" class="text__search-input" placeholder="Search ..." value="{{ request('word') }}">
             </label>
         </div>
         
