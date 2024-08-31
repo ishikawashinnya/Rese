@@ -12,7 +12,7 @@
         </div>
         
         <div class="done__link">
-            <a href="" class="link__btn">戻る</a>
+            <a href="/" class="link__btn">戻る</a>
         </div>
     </div>
     

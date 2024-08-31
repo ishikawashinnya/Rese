@@ -44,12 +44,12 @@
     @foreach($shops as $shop)
         <div class="card">
             <div class="shop__img">
-                <img src="{{ $shop -> image_url }}" alt="{{ $shop->name }}">
+                <img src="{{ $shop->image_url }}" alt="{{ $shop->name }}">
             </div>
 
             <div class="card__item">
                 <div class="shop__name">
-                    <p>{{ $shop -> name }}</p>
+                    <p>{{ $shop->name }}</p>
                 </div>
                 <div class="text__box">
                     <p class="area">#{{ $shop->area->name }}</p>
@@ -59,12 +59,29 @@
 
             <div class="card__btn">
                 <div class="detail__link">
-                    <a href="/detail/:shop_id" class="detail__link-btn">詳しくみる</a>
+                    <a href="/detail/{{ $shop->id }}" class="detail__link-btn">詳しくみる</a>
                 </div>
-                <div class="favorit__form">
-                    <button type="button" class="favorit__form-btn">
-                        <img src="{{ asset('icon/heart.svg') }}" alt="お気に入り" class="heart-icon">
-                    </button>
+                <div class="shop__favorit">
+                    @if (Auth::check())
+                        @if (in_array($shop->id, $favorites))
+                            <form action="{{ route('favorites.destroy', $shop->id) }}" method="POST" class="shop__favorit-form">
+                                <input type="hidden" name="shop_id" value="{{ $shop->id }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="favorit__form-btn">
+                                    <img src="{{ asset('icon/heart_color.svg') }}" alt="お気に入り解除" class="heart-icon">
+                                </button>
+                            </form>
+                        @else
+                            <form action="{{ route('favorites.create') }}" method="POST" class="shop__favorit-form">
+                                @csrf
+                                <input type="hidden" name="shop_id" value="{{ $shop->id }}">
+                                <button type="submit" class="favorit__form-btn">
+                                    <img src="{{ asset('icon/heart.svg') }}" alt="お気に入り登録" class="heart-icon">
+                                </button>
+                            </form>
+                        @endif
+                    @endif
                 </div>
             </div>
         </div>

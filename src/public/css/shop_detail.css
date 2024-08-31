@@ -20,8 +20,19 @@
     align-items: center;
 }
 
+.return__btn {
+    height: 28px;
+    width: 28px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px gray;
+    text-decoration: none;
+    text-align: center;
+    line-height: 28px;
+    background-color: #fff;
+}
+
 .shop__name {
-    font-size: 32px;
+    font-size: 28px;
     margin-left: 2%;
 }
 
@@ -71,7 +82,7 @@
     border: 1px solid #fff;
     border-radius: 7px;
     background-color: #fff;
-    font-size: 120%;
+    font-size: 110%;
     font-weight: bold;
 }
 

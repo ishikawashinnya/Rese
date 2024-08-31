@@ -8,21 +8,21 @@
 <div class="shop_detail-content">
     <div class="content__left">
         <div class="content__left-ttl">
-            <a href="" class="return__btn">戻る</a>
-            <p class="shop__name">仙人</p>
+            <a href="{{ url()->previous() }}" class="return__btn"><</a>
+            <p class="shop__name">{{ $shop->name }}</p>
         </div>
 
         <div class="content__img">
-            <img src="https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg" alt="写真">
+            <img src="{{ $shop->image_url }}" alt="{{ $shop->name }}">
         </div>
         
         <div class="shop__information">
-            <p>#エリア</p>
-            <p>#ジャンル</p>
+            <p>#{{ $shop->area->name }}</p>
+            <p>#{{ $shop->genre->name }}</p>
         </div>
 
         <div class="shop__description">
-            <p>料理長厳選の食材から作る寿司を用いたコースをぜひお楽しみください。食材・味・価格、お客様の満足度を徹底的に追及したお店です。特別な日のお食事、ビジネス接待まで気軽に使用することができます。</p>
+            <p>{{ $shop->description }}</p>
         </div>
     </div>
 
@@ -32,13 +32,17 @@
                 <p>予約</p>
             </div>
             
-            <form action="" class="reservation__form-item">
+            <form action="{{ route('reservation.store') }}" method="POST" class="reservation__form-item">
+                @csrf
+                <input type="hidden" name="shop_id" value="{{ $shop->id }}">
+
                 <div class="reservation__date">
-                    <input type="date" name="date" value="2021-04-01">
+                    <input type="date" name="reservation_date" id="reservation_date" value="{{ date('Y-m-d') }}" class="form__item">
                 </div>
 
                 <div class="reservation__time">
-                    <select name="time" id="time">
+                    <select name="reservation_time" id="reservation_time" class="form__item">
+                        <option value="" disabled selected>-- 時間を選択 --</option>
                         <option value="17:00">17:00</option>
                         <option value="18:00">18:00</option>
                         <option value="19:00">19:00</option>
@@ -49,12 +53,13 @@
                 </div>
 
                 <div class="reservation__num">
-                    <select name="number" id="number">
-                        <option value="1人">1人</option>
-                        <option value="2人">2人</option>
-                        <option value="3人">3人</option>
-                        <option value="4人">4人</option>
-                        <option value="5人">5人</option>
+                    <select name="reservation_num" id="reservation_num" class="form__item" >
+                        <option value="" disabled selected>-- 人数を選択 --</option>
+                        <option value="1">1人</option>
+                        <option value="2">2人</option>
+                        <option value="3">3人</option>
+                        <option value="4">4人</option>
+                        <option value="5">5人</option>
                     </select>
                 </div>
 
@@ -62,19 +67,19 @@
                     <table class="reservation__confirmation-table">
                         <tr>
                             <th class="reservation__confirmation-ttl">Shop</th>
-                            <td class="selected__shop">店名</td>
+                            <td class="selected__shop">{{ $shop->name }}</td>
                         </tr>
                         <tr>
                             <th class="reservation__confirmation-ttl">Date</th>
-                            <td class="selected__date">日付</td>
+                            <td class="selected__date"></td>
                         </tr>
                         <tr>
                             <th class="reservation__confirmation-ttl">Time</th>
-                            <td class="selected__time">時間</td>
+                            <td class="selected__time"></td>
                         </tr>
                         <tr>
                             <th class="reservation__confirmation-ttl">Number</th>
-                            <td class="selected__num">人数</td>
+                            <td class="selected__num"></td>
                         </tr>
                     </table>
                 </div>
@@ -88,16 +93,31 @@
 </div>
 
 <script>
-    document.getElementById('date').addEventListener('change', function() {
-        document.getElementById('selected_date').textContent = this.value;
-    });
+    document.addEventListener('DOMContentLoaded', function() {
+        const reservationDate = document.getElementById('reservation_date');
+        const reservationTime = document.getElementById('reservation_time');
+        const reservationNum = document.getElementById('reservation_num');
 
-    document.getElementById('time').addEventListener('change', function() {
-        document.getElementById('selected_time').textContent = this.value;
-    });
+        const selectedDate = document.querySelector('.selected__date');
+        const selectedTime = document.querySelector('.selected__time');
+        const selectedNum = document.querySelector('.selected__num');
 
-    document.getElementById('people').addEventListener('change', function() {
-        document.getElementById('selected_people').textContent = this.value;
+        // 初期値をセット
+        selectedDate.textContent = reservationDate.value;
+        selectedTime.textContent = reservationTime.value;
+        selectedNum.textContent = reservationNum.value + '人';
+
+        reservationDate.addEventListener('change', function() {
+            selectedDate.textContent = this.value;
+        });
+
+        reservationTime.addEventListener('change', function() {
+            selectedTime.textContent = this.value;
+        });
+
+        reservationNum.addEventListener('change', function() {
+            selectedNum.textContent = this.value + '人';
+        });
     });
 </script>
 @endsection
