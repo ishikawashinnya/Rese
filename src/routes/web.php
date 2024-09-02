@@ -47,10 +47,12 @@ Route::get('/done', [ReseController::class, 'done'])->name('reservation.done');
 
 // Authenticated User Routes
 Route::middleware(['auth'])->group(function () {
-    Route::post('/reservation', [ReseController::class, 'store'])->name('reservation.store');
-
     Route::get('/mypage', [ReseController::class, 'mypage']);
-    Route::post('/delete', [ReseController::class, 'delete']);
+
+    Route::post('/reservations', [ReseController::class, 'store'])->name('reservation.store');
+    Route::get('/reservations/{id}/edit', [ReseController::class, 'edit'])->name('reservation.edit');
+    Route::post('/reservations/{id}', [ReseController::class, 'update'])->name('reservation.update');
+    Route::delete('/reservations/{id}', [ReseController::class, 'delete'])->name('reservation.delete');
 
     Route::post('/favorites', [ReseController::class, 'create'])->name('favorites.create');
     Route::delete('/favorites/{id}', [ReseController::class, 'destroy'])->name('favorites.destroy');

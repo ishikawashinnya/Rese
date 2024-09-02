@@ -1,6 +1,7 @@
 .header__right {
     display: flex;
     width: 50%;
+    margin-right: 1%;
 }
 
 .header__search {
@@ -10,7 +11,8 @@
     background-color: #fff;
     font-size: 1.2rem;
     width: 98%;
-    height: 35px;
+    height: 50px;
+    
 }
 
 .select__box-label {
@@ -45,6 +47,7 @@
 .text__search {
     display: flex;
     align-items: center;
+    width: 54%;
 }
 
 .search__btn {
@@ -71,16 +74,17 @@
 
 .text__search-label {
     width: 100%;
-    margin-left: 5%;
 }
 
 .text__search-input {
-    width: 100%;
+    width: 95%;
     height: 30px;
     padding: 0 10px;
     border: none;
     outline: none;
     font-size: 14px;
+    background-color: #fff;
+    margin-left: 3%;
 }
 
 .wrapper {
@@ -91,16 +95,13 @@
 }
 
 .card {
-    width: 24%;
+    width: 23.8%;
     border: none;
     border-radius: 7px;
     background-color: #fff;
     margin-bottom: 2%;
     box-shadow: 2px 2px 5px gray;
-}
-
-.wrapper .card:not(:nth-child(1)):not(:nth-child(4n+1)) {
-    margin-left: 1%;
+    margin-right: 1%;
 }
 
 .shop__img {
