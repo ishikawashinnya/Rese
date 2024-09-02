@@ -32,9 +32,7 @@
             <label class="text__search-label">
                 <input type="text" name="word" class="text__search-input" placeholder="Search ..." value="{{ request('word') }}">
             </label>
-        </div>
-        
-        
+        </div>  
     </div>
 </form>
 @endsection

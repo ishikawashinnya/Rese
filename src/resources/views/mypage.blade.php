@@ -31,13 +31,23 @@
                             </div>
                         </div>
 
-                        <div class="header__right">
-                            <form action="/delete" method='post' class="reservation__form">
+                        <div class="confirmation__header-right">
+                            <form action="{{ route('reservation.edit', ['id' => $reservation->id]) }}" method='get' class="reservation__form">
                                 @csrf
+                                <div class="header__right-img">
+                                    <button type="submit" class="reservation__form-btn">
+                                        <img src="{{ asset('icon/pencil.svg') }}" alt="予約変更">
+                                    </button>
+                                </div>
+                            </form>
+
+                            <form action="{{ route('reservation.delete', ['id' => $reservation->id]) }}" method='post' class="reservation__form">
+                                @csrf
+                                @method('DELETE')
                                 <input type="hidden" name="id" value="{{ $reservation->id }}">
                                 <div class="header__right-img">
                                     <button type="submit" class="reservation__form-btn">
-                                        <img src="{{ asset('icon/batsu.svg') }}" alt="取り消し">
+                                        <img src="{{ asset('icon/batsu.svg') }}" alt="予約取消">
                                     </button>
                                 </div>
                             </form>

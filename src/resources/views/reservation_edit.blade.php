@@ -29,53 +29,38 @@
     <div class="content__right">
         <div class="reservation__form">
             <div class="form__ttl">
-                <p>予約</p>
+                <p>予約変更</p>
             </div>
             
-            <form action="{{ route('reservation.store') }}" method="POST" class="reservation__form-item">
+            <form action="{{ route('reservation.update', ['id' => $reservation->id]) }}" method="POST" class="reservation__form-item">
                 @csrf
                 <input type="hidden" name="shop_id" value="{{ $shop->id }}">
 
                 <div class="reservation__date">
-                    <input type="date" name="reservation_date" id="reservation_date" value="{{ old('reservation_date', '') }}" class="form__item" min="{{ $today }}">
-                    <div class="error__item">
-                        @error('reservation_date')
-                            <span class="error__message">{{ $message }}</span>
-                        @enderror
-                    </div>
+                    <input type="date" name="reservation_date" id="reservation_date" value="{{ old('reservation_date', $reservation->reservation_date) }}" class="form__item" min="{{ $today }}">
                 </div>
 
                 <div class="reservation__time">
                     <select name="reservation_time" id="reservation_time" class="form__item">
-                        <option value="" disabled {{ old('reservation_time') ? '' : 'selected' }}>-- 時間を選択 --</option>
-                        <option value="17:00" {{ old('reservation_time') == '17:00' ? 'selected' : '' }}>17:00</option>
-                        <option value="18:00" {{ old('reservation_time') == '18:00' ? 'selected' : '' }}>18:00</option>
-                        <option value="19:00" {{ old('reservation_time') == '19:00' ? 'selected' : '' }}>19:00</option>
-                        <option value="20:00" {{ old('reservation_time') == '20:00' ? 'selected' : '' }}>20:00</option>
-                        <option value="21:00" {{ old('reservation_time') == '21:00' ? 'selected' : '' }}>21:00</option>
-                        <option value="22:00" {{ old('reservation_time') == '22:00' ? 'selected' : '' }}>22:00</option>
+                        <option value="" disabled {{ old('reservation_time', $reservation->reservation_time) ? '' : 'selected' }}>-- 時間を選択 --</option>
+                        <option value="17:00" {{ old('reservation_time', $reservation->reservation_time) == '17:00' ? 'selected' : '' }}>17:00</option>
+                        <option value="18:00" {{ old('reservation_time', $reservation->reservation_time) == '18:00' ? 'selected' : '' }}>18:00</option>
+                        <option value="19:00" {{ old('reservation_time', $reservation->reservation_time) == '19:00' ? 'selected' : '' }}>19:00</option>
+                        <option value="20:00" {{ old('reservation_time', $reservation->reservation_time) == '20:00' ? 'selected' : '' }}>20:00</option>
+                        <option value="21:00" {{ old('reservation_time', $reservation->reservation_time) == '21:00' ? 'selected' : '' }}>21:00</option>
+                        <option value="22:00" {{ old('reservation_time', $reservation->reservation_time) == '22:00' ? 'selected' : '' }}>22:00</option>
                     </select>
-                    <div class="error__item">
-                        @error('reservation_time')
-                            <span class="error__message">{{ $message }}</span>
-                        @enderror
-                    </div>
                 </div>
 
                 <div class="reservation__num">
                     <select name="reservation_num" id="reservation_num" class="form__item" >
-                        <option value="" disabled {{ old('reservation_num') ? '' : 'selected' }}>-- 人数を選択 --</option>
-                        <option value="1" {{ old('reservation_num') == '1' ? 'selected' : '' }}>1人</option>
-                        <option value="2" {{ old('reservation_num') == '2' ? 'selected' : '' }}>2人</option>
-                        <option value="3" {{ old('reservation_num') == '3' ? 'selected' : '' }}>3人</option>
-                        <option value="4" {{ old('reservation_num') == '4' ? 'selected' : '' }}>4人</option>
-                        <option value="5" {{ old('reservation_num') == '5' ? 'selected' : '' }}>5人</option>
+                        <option value="" disabled {{ old('reservation_num', $reservation->reservation_num) ? '' : 'selected' }}>-- 人数を選択 --</option>
+                        <option value="1" {{ old('reservation_num', $reservation->reservation_num) == '1' ? 'selected' : '' }}>1人</option>
+                        <option value="2" {{ old('reservation_num', $reservation->reservation_num) == '2' ? 'selected' : '' }}>2人</option>
+                        <option value="3" {{ old('reservation_num', $reservation->reservation_num) == '3' ? 'selected' : '' }}>3人</option>
+                        <option value="4" {{ old('reservation_num', $reservation->reservation_num) == '4' ? 'selected' : '' }}>4人</option>
+                        <option value="5" {{ old('reservation_num', $reservation->reservation_num) == '5' ? 'selected' : '' }}>5人</option>
                     </select>
-                    <div class="error__item">
-                        @error('reservation_num')
-                            <span class="error__message">{{ $message }}</span>
-                        @enderror
-                    </div>
                 </div>
 
                 <div class="reservation__confirmation">
@@ -100,7 +85,7 @@
                 </div>
 
                 <div class="reservation__form-btn">
-                    <button class="reservation__btn" type="submit">予約する</button>
+                    <button class="reservation__btn" type="submit">変更する</button>
                 </div>  
             </form>
         </div>

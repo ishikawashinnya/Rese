@@ -139,3 +139,8 @@
     cursor: pointer;
     background-color: #003ff5;
 }
+
+.error__item {
+    font-size: 18px;
+    color: #fff;
+}

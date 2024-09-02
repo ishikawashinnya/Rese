@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\ReservationRequest;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 
 class ReseController extends Controller
@@ -51,15 +52,21 @@ class ReseController extends Controller
     //飲食店詳細ページ
     public function detail($shop_id) {
         $shop = Shop::findOrFail($shop_id);
+
+        $today = now()->format('Y-m-d');
     
-        return view('shop_detail', compact('shop'));
+        return view('shop_detail', compact('shop', 'today'));
     }
 
     //マイページ
     public function mypage() {
-
         $user = Auth::user();
         $reservations = Reservation::where('user_id', $user->id)->with('shop')->get();
+
+        foreach ($reservations as $reservation) {
+            $reservation->reservation_time = Carbon::parse($reservation->reservation_time)->format('H:i');
+        }
+
         $favorites = Favorite::where('user_id', $user->id)->with('shop')->get();
 
         return view('mypage', compact('reservations', 'favorites'));
@@ -75,10 +82,10 @@ class ReseController extends Controller
         $user = Auth::user();
 
         $reservation = new Reservation();
-        $reservation->user_id = auth()->id();
+        $reservation->user_id = Auth::id();
         $reservation->shop_id = $request->input('shop_id');
         $reservation->reservation_date = $request->input('reservation_date');
-        $reservation->reservation_time = $request->input('reservation_time');
+        $reservation->reservation_time = Carbon::parse($request->input('reservation_time'))->format('H:i');
         $reservation->reservation_num = $request->input('reservation_num');
         $reservation->status = "予約";
 
@@ -87,10 +94,34 @@ class ReseController extends Controller
         return redirect()->route('reservation.done');
     }
 
+    //予約変更
+    public function edit($id) {
+        $reservation = Reservation::findOrFail($id);
+        $shop = Shop::findOrFail($reservation->shop_id);
+        $today = now()->format('Y-m-d');
+
+        $reservation->reservation_time = Carbon::parse($reservation->reservation_time)->format('H:i');
+
+        return view('reservation_edit', compact('reservation','shop', 'today'));
+    }
+
+    public function update(ReservationRequest $request, $id) {
+        $reservation = Reservation::findOrFail($id);
+
+        $reservation->update([
+            'reservation_date' => $request->input('reservation_date'),
+            'reservation_time' => Carbon::parse($request->input('reservation_time'))->format('H:i'),
+            'reservation_num' => $request->input('reservation_num'),
+        ]);
+
+        return redirect()->route('reservation.done');
+    }
+
     //予約削除
     public function delete(Request $request) {
         $reservation = Reservation::findOrFail($request->id);
         $reservation->delete();
+
         return back();
     }
 
