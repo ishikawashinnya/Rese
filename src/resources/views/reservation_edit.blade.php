@@ -1,14 +1,16 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/shop_detail.css') }}" />
+<link rel="stylesheet" href="{{ asset('css/reservation_edit.css') }}" />
 @endsection
 
 @section('content')
-<div class="shop_detail-content">
+<div class="reservation_edit-content">
     <div class="content__left">
         <div class="content__left-ttl">
-            <a href="{{ url()->previous() }}" class="return__btn"><</a>
+            <div class="return__link">
+                <a href="{{ url()->previous() }}" class="return__btn"><</a>
+            </div>
             <p class="shop__name">{{ $shop->name }}</p>
         </div>
 

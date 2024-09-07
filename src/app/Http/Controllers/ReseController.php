@@ -8,8 +8,10 @@ use App\Models\Favorite;
 use App\Models\Reservation;
 use App\Models\Shop;
 use App\Models\User;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Http\Requests\ReservationRequest;
+use App\Http\Requests\ReviewRequest;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
@@ -77,7 +79,7 @@ class ReseController extends Controller
         return view('done'); 
     }
 
-    //予約追加
+    //予約登録
     public function store(ReservationRequest $request) {
         $user = Auth::user();
 
@@ -129,9 +131,7 @@ class ReseController extends Controller
     public function create(Request $request) {
         $user = Auth::user();
 
-        $existingFavorite = Favorite::where('shop_id', $request->shop_id)
-                                    ->where('user_id', $user->id)
-                                    ->first();
+        $existingFavorite = Favorite::where('shop_id', $request->shop_id)->where('user_id', $user->id)->first();
 
         if ($existingFavorite) {
             return back();
@@ -147,9 +147,7 @@ class ReseController extends Controller
 
     //お気に入り削除
     public function destroy(Request $request, $id) {
-        $favorite = Favorite::where('shop_id', $id)
-                            ->where('user_id', Auth::id())
-                            ->first();
+        $favorite = Favorite::where('shop_id', $id)->where('user_id', Auth::id())->first();
 
         if ($favorite) {
             $favorite->delete();
@@ -157,5 +155,48 @@ class ReseController extends Controller
 
         return back();
     }
+
+    //レビュー一覧ページ
+    public function reviewList($shop_id) {
+        $shop = Shop::findOrFail($shop_id);
+        $reviews = Review::where('shop_id', $shop_id)->get();
+        
+        return view('reviews.reviews_list', compact('shop', 'reviews'));
+    }
+
+    //レビュー投稿ページ
+    public function createReview($shop_id) {
+        $shop = Shop::findOrFail($shop_id);
+
+        $user = Auth::user();
+        $favorites = Favorite::where('user_id', $user->id)->pluck('shop_id')->toArray();
+
+        return view('reviews.review', compact('shop', 'favorites'));
+    }
     
+    //レビュー登録
+    public function storeReview(ReviewRequest $request, $shop_id) {
+        $user = Auth::user();
+
+        $oldReview = Review::where('user_id', $user->id)->where('shop_id', $shop_id)->first();
+
+        if ($oldReview) {
+            return redirect()->route('reviews.create', ['shop_id' => $shop_id])->with('error', '既にレビューを投稿されてます');
+        }
+
+        $image_url = null;
+        if ($request->hasFile('image_url')) {
+            $image_url = $request->file('image_url')->store('review_images', 'public');
+        }
+
+        Review::create([
+            'user_id' => $user->id,
+            'shop_id' => $shop_id,
+            'rating' => $request->input('rating'),
+            'comment' => $request->input('comment'),
+            'image_url' => $image_url,
+        ]);
+
+        return redirect()->route('reviews.create', ['shop_id' => $shop_id])->with('success', 'レビューが投稿されました');
+    }
 }

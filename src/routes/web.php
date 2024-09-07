@@ -44,6 +44,8 @@ Route::post('/email/verification-notification', function (Request $request) {
 Route::get('/', [ReseController::class, 'index'])->middleware(['auth', 'verified']);
 Route::get('/detail/{shop_id}', [ReseController::class, 'detail']);
 Route::get('/done', [ReseController::class, 'done'])->name('reservation.done');
+Route::get('reviewslist/{shop_id}', [ReseController::class, 'reviewList'])->name('reviews.list');
+
 
 // Authenticated User Routes
 Route::middleware(['auth'])->group(function () {
@@ -56,4 +58,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/favorites', [ReseController::class, 'create'])->name('favorites.create');
     Route::delete('/favorites/{id}', [ReseController::class, 'destroy'])->name('favorites.destroy');
+
+    Route::get('/review/{shop_id}', [ReseController::class, 'createReview'])->name('reviews.create');
+    Route::post('/review/{shop_id}', [ReseController::class, 'storeReview'])->name('reviews.store');
+
 });

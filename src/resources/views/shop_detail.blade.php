@@ -7,11 +7,25 @@
 @section('content')
 <div class="shop_detail-content">
     <div class="content__left">
-        <div class="content__left-ttl">
-            <a href="{{ url()->previous() }}" class="return__btn"><</a>
-            <p class="shop__name">{{ $shop->name }}</p>
+        <div class="left__header">
+            <div class="content__left-ttl">
+                <div class="return__link">
+                    <a href="{{ url()->previous() }}" class="return__btn"><</a>
+                </div>
+                <p class="shop__name">{{ $shop->name }}</p>
+            </div>
+            <div class="review__buttons">
+                <div class="review__link">
+                    <a href="{{ route('reviews.list', ['shop_id' => $shop->id]) }}" class="review__link-button">レビュー一覧</a>
+                </div>
+                <div class="review__link">
+                    @if (Auth::check())
+                        <a href="{{ route('reviews.create', ['shop_id' => $shop->id]) }}" class="review__link-button">レビュー投稿</a>
+                    @endif
+                </div>  
+            </div>
         </div>
-
+        
         <div class="content__img">
             <img src="{{ $shop->image_url }}" alt="{{ $shop->name }}">
         </div>
