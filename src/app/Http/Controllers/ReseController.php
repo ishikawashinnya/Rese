@@ -14,6 +14,7 @@ use App\Http\Requests\ReservationRequest;
 use App\Http\Requests\ReviewRequest;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Pagination\Paginator;
 
 
 class ReseController extends Controller
@@ -159,9 +160,11 @@ class ReseController extends Controller
     //レビュー一覧ページ
     public function reviewList($shop_id) {
         $shop = Shop::findOrFail($shop_id);
-        $reviews = Review::where('shop_id', $shop_id)->get();
-        
-        return view('reviews.reviews_list', compact('shop', 'reviews'));
+        $reviews = Review::where('shop_id', $shop_id)->with('user')->paginate(10);
+        $averageRating = Review::where('shop_id', $shop_id)->avg('rating');
+
+
+        return view('reviews.reviews_list', compact('shop', 'reviews', 'averageRating'));
     }
 
     //レビュー投稿ページ
@@ -194,7 +197,7 @@ class ReseController extends Controller
             'shop_id' => $shop_id,
             'rating' => $request->input('rating'),
             'comment' => $request->input('comment'),
-            'image_url' => $image_url,
+            'image_url' => basename($image_url),
         ]);
 
         return redirect()->route('reviews.create', ['shop_id' => $shop_id])->with('success', 'レビューが投稿されました');

@@ -1,0 +1,44 @@
+.pagination__wrap {
+    display: flex;
+    justify-content: center;
+    
+}
+
+.pagination__text {
+    display: inline-block;
+}
+
+.pagination__nav {
+    display: flex;
+    padding: 0;
+}
+
+.pagination__list {
+    width: 70px;
+    list-style: none;
+    text-decoration: none;
+    border: 1px solid gainsboro;
+    padding: 8px 15px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.pagination__list:first-child {
+    border-radius: 5px;
+    margin-right: 1%;
+}
+
+.pagination__list:last-child {
+    border-radius: 5px;
+}
+
+.pagination__item {
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.active {
+    color: white;
+    background-color: #2384cf;
+    border: 1px solid #2384cf;
+}
