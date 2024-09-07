@@ -1,4 +1,4 @@
-.shop_detail-content {
+.reservation_edit-content {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -22,10 +22,6 @@
     width: 50%;
     display: flex;
     align-items: center;
-}
-
-.content__img {
-    width: 100%;
 }
 
 .content__img img {
@@ -52,37 +48,9 @@
     margin-left: 3%;
 }
 
-.review__buttons {
-    width: 45%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.review__link {
-    width: 120px;
-    height: 35px;
-    border-radius: 5px;
-    box-shadow: 2px 2px 5px gray;
-    text-align: center;
-    background-color: #3560f6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.review__link-button {
-    text-decoration: none;
-    color: #fff;
-}
-
 .shop__information {
     display: flex;
     align-items: center;
-}
-
-.shop__description {
-    width: 100%;
 }
 
 .content__right {
@@ -174,11 +142,6 @@
     margin-top: 40%;
 }
 
-.post__form {
-    width: 100%;
-    display: flex;
-}
-    
 .reservation__btn {
     border: none;
     outline: none;
