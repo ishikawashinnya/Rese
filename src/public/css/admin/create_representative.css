@@ -1,0 +1,106 @@
+.create__content {
+    width: 100%;
+    margin-top: 100px;
+}
+
+.create__card {
+    max-width: 350px;
+    width: 95%;
+    border: none;
+    border-radius: 7px;
+    background-color: #fff;
+    box-shadow: 2px 2px 5px gray;
+    margin: 0 auto;
+    padding-bottom: 20px;
+}
+
+.card__header {
+    width: 100%;
+    border-radius: 7px 7px 0 0;
+    background-color: #3560f6;
+    margin-bottom: 12px;
+
+}
+
+.card__header-ttl {
+    margin-left: 5%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    color: #fff;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.form__input--text {
+    margin-left: 10%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-bottom: 5%;
+}
+
+.form__input--text input {
+    width: 100%;
+    padding-top: 10px;
+    margin-left: 10px;
+    border: none;
+    border-bottom: 2px solid #000;
+}
+
+.create__content-form {
+    text-align: center;
+    width: 90%;
+}
+
+.card__footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer__link {
+    margin-left: 40px;
+}
+
+.link__button {
+    margin-right: auto;
+    display: block;
+    background-color: rgb(63, 90, 242);
+    border: 1px solid rgb(63, 90, 242);
+    border-radius: 5px;
+    padding: 3px 10px;
+    cursor: pointer;
+}
+
+.back__link {
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.form__button-submit {
+    margin-left: auto;
+    display: block;
+    background-color: rgb(63, 90, 242);
+    border: 1px solid rgb(63, 90, 242);
+    border-radius: 5px;
+    color: #fff;
+    padding: 3px 10px;
+    cursor: pointer;
+}
+
+
+.alert__success {
+    font-size: 18px;
+    margin-left: 15px;
+}
+
+.form__error {
+    color: red;
+}
+
+.alert__success {
+    color: #ADFF2F;
+}

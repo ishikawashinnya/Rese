@@ -1,0 +1,18 @@
+.admin__content {
+    width: 100%;
+    margin-top: 100px;
+    text-align: center;
+}
+
+.admin__header {
+    font-size: 30px;
+}
+
+.admin__main {
+    font-size: 24px;
+}
+
+.admin__link-item {
+    text-decoration: none;
+    color: #3560f6;
+}

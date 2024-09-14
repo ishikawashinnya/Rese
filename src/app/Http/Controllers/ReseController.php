@@ -47,9 +47,15 @@ class ReseController extends Controller
         $genres = Genre::all();
 
         $user = Auth::user();
-        $favorites = Favorite::where('user_id', $user->id)->pluck('shop_id')->toArray();
 
-        return view('shop_all', compact('shops', 'areas', 'genres', 'favorites'));
+        if ($user) {
+            $favorites = Favorite::where('user_id', $user->id)->pluck('shop_id')->toArray();
+            
+            return view('shop_all', compact('shops', 'areas', 'genres', 'favorites'));
+        } else {
+            return view('shop_all', compact('shops', 'areas', 'genres'));
+        }
+        
     }
 
     //飲食店詳細ページ
@@ -64,15 +70,23 @@ class ReseController extends Controller
     //マイページ
     public function mypage() {
         $user = Auth::user();
-        $reservations = Reservation::where('user_id', $user->id)->with('shop')->get();
 
-        foreach ($reservations as $reservation) {
-            $reservation->reservation_time = Carbon::parse($reservation->reservation_time)->format('H:i');
+
+        if ($user->hasRole('admin')) {
+            return view('admin.admin_mypage');
+        } elseif ($user->hasRole('shop representative')) {
+            return view('representative.representative_mypage');
+        } else {
+            $reservations = Reservation::where('user_id', $user->id)->with('shop')->get();
+
+            foreach ($reservations as $reservation) {
+                $reservation->reservation_time = Carbon::parse($reservation->reservation_time)->format('H:i');
+            }
+
+            $favorites = Favorite::where('user_id', $user->id)->with('shop')->get();
+
+            return view('mypage', compact('reservations', 'favorites'));
         }
-
-        $favorites = Favorite::where('user_id', $user->id)->with('shop')->get();
-
-        return view('mypage', compact('reservations', 'favorites'));
     }
 
     //予約完了ページ

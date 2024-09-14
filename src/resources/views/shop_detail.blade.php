@@ -18,11 +18,11 @@
                 <div class="review__link">
                     <a href="{{ route('reviews.list', ['shop_id' => $shop->id]) }}" class="review__link-button">レビュー一覧</a>
                 </div>
-                <div class="review__link">
-                    @if (Auth::check())
+                @if (Auth::check())
+                    <div class="review__link">
                         <a href="{{ route('reviews.create', ['shop_id' => $shop->id]) }}" class="review__link-button">レビュー投稿</a>
-                    @endif
-                </div>  
+                    </div>  
+                @endif
             </div>
         </div>
         
