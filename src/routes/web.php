@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +42,7 @@ Route::post('/email/verification-notification', function (Request $request) {
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 // Public Routes
-Route::get('/', [ReseController::class, 'index'])->middleware(['auth', 'verified']);
+Route::get('/', [ReseController::class, 'index']);
 Route::get('/detail/{shop_id}', [ReseController::class, 'detail']);
 Route::get('/done', [ReseController::class, 'done'])->name('reservation.done');
 Route::get('reviewslist/{shop_id}', [ReseController::class, 'reviewList'])->name('reviews.list');
@@ -62,4 +63,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/review/{shop_id}', [ReseController::class, 'createReview'])->name('reviews.create');
     Route::post('/review/{shop_id}', [ReseController::class, 'storeReview'])->name('reviews.store');
 
+});
+
+// Admin Routes
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/create', [AdminController::class, 'create'])->name('admin.create');
+    Route::post('/admin/store', [AdminController::class, 'store'])->name('admin.store');
 });
