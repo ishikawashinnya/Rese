@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\RepresentativeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,15 +43,15 @@ Route::post('/email/verification-notification', function (Request $request) {
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 // Public Routes
-Route::get('/', [ReseController::class, 'index']);
-Route::get('/detail/{shop_id}', [ReseController::class, 'detail']);
+Route::get('/', [ReseController::class, 'index'])->name('home');
+Route::get('/detail/{shop_id}', [ReseController::class, 'detail'])->name('detail');
 Route::get('/done', [ReseController::class, 'done'])->name('reservation.done');
 Route::get('reviewslist/{shop_id}', [ReseController::class, 'reviewList'])->name('reviews.list');
 
 
 // Authenticated User Routes
-Route::middleware(['auth'])->group(function () {
-    Route::get('/mypage', [ReseController::class, 'mypage']);
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/mypage', [ReseController::class, 'mypage'])->name('mypage');
 
     Route::post('/reservations', [ReseController::class, 'store'])->name('reservation.store');
     Route::get('/reservations/{id}/edit', [ReseController::class, 'edit'])->name('reservation.edit');
@@ -69,4 +70,10 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/create', [AdminController::class, 'create'])->name('admin.create');
     Route::post('/admin/store', [AdminController::class, 'store'])->name('admin.store');
+});
+
+//Representative Routes
+Route::middleware(['auth', 'verified', 'role:shop representative'])->group(function () {
+    Route::get('/createshop', [RepresentativeController::class, 'create'])->name('shop.create');
+    Route::post('/shop/store', [RepresentativeController::class, 'store'])->name('shop.store');
 });
