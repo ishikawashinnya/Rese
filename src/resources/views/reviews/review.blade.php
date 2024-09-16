@@ -42,7 +42,11 @@
     <div class="content__main">
         <div class="content__left">
             <div class="content__img">
-                <img src="{{ $shop->image_url }}" alt="{{ $shop->name }}">
+                @if (filter_var($shop->image_url, FILTER_VALIDATE_URL))
+                    <img src="{{ $shop->image_url }}" alt="{{ $shop->name }}">
+                @else
+                    <img src="{{ asset('storage/shop_images/' . $shop->image_url) }}" alt="{{ $shop->name }}">
+                @endif
             </div>
         
             <div class="shop__information">

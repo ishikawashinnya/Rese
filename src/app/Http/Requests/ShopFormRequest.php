@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateShopRequest extends FormRequest
+class ShopFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,7 +29,7 @@ class CreateShopRequest extends FormRequest
             'genre_id' => 'required',
             'description' => ['required', 'string', 'max:150'],
             'address' => ['required', 'string'],
-            'image_url' => ['file', 'mimes:jpeg,png']
+            'image_url' => ['required', 'file', 'mimes:jpeg,png']
         ];
     }
     
@@ -45,6 +45,7 @@ class CreateShopRequest extends FormRequest
             'description.max' => '店舗説明文を150文字以下で入力してください',
             'address.required' => '住所を入力してください',
             'address.string' => '住所を文字列で入力してください',
+            'image_url.required' => '画像ファイルを選択してください',
             'image_url.file' => '有効なファイルをアップロードしてください',
             'image_url.mimes' => 'ファイル形式はjpeg,pngのみ有効です'
         ];
