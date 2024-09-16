@@ -10,7 +10,11 @@
         <div class="left__header">
             <div class="content__left-ttl">
                 <div class="return__link">
-                    <a href="{{ url()->previous() }}" class="return__btn"><</a>
+                    @if(request()->query('from_mypage'))
+                        <a href="{{ route('mypage') }}" class="return__btn"><</a>
+                    @else 
+                        <a href="/" class="return__btn"><</a>
+                    @endif
                 </div>
                 <p class="shop__name">{{ $shop->name }}</p>
             </div>
@@ -27,7 +31,11 @@
         </div>
         
         <div class="content__img">
-            <img src="{{ $shop->image_url }}" alt="{{ $shop->name }}">
+            @if (filter_var($shop->image_url, FILTER_VALIDATE_URL))
+                <img src="{{ $shop->image_url }}" alt="{{ $shop->name }}">
+            @else
+                <img src="{{ asset('storage/shop_images/' . $shop->image_url) }}" alt="{{ $shop->name }}">
+            @endif
         </div>
         
         <div class="shop__information">

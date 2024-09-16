@@ -14,7 +14,7 @@
         <div class="representative__link">
             <ul>
                 <li>
-                    <a href="#" class="representative__link-item"><h3>新規店舗情報作成</h3></a>
+                    <a href="{{ route('shop.create') }}" class="representative__link-item"><h3>新規店舗情報作成</h3></a>
                 </li>
                 <li>
                     <a href="#" class="representative__link-item"><h3>店舗情報変更</h3></a>

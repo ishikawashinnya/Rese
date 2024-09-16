@@ -102,7 +102,7 @@
         
                             <div class="card__btn">
                                 <div class="detail__link">
-                                    <a href="/detail/{{ $favorite->shop->id }}" class="detail__link-btn">詳しく見る</a>
+                                    <a href="{{ route('detail', ['shop_id' => $favorite->shop->id, 'from_mypage' => 1]) }}" class="detail__link-btn">詳しく見る</a>
                                 </div>
                                 <div class="shop__favorit">
                                     <form action="{{ route('favorites.destroy', $favorite->shop->id) }}" method="POST" class="shop__favorit-form">
