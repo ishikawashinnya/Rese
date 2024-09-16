@@ -9,6 +9,7 @@ use App\Models\Reservation;
 use App\Models\Shop;
 use App\Models\User;
 use App\Models\Review;
+use App\Models\Representative;
 use Illuminate\Http\Request;
 use App\Http\Requests\ReservationRequest;
 use App\Http\Requests\ReviewRequest;
@@ -75,7 +76,10 @@ class ReseController extends Controller
         if ($user->hasRole('admin')) {
             return view('admin.admin_mypage');
         } elseif ($user->hasRole('shop representative')) {
-            return view('representative.representative_mypage');
+            $representative = Representative::where('user_id', $user->id)->firstOrFail();
+            $shop = Shop::findOrFail($representative->shop_id);
+
+            return view('representative.representative_mypage', compact('representative', 'shop'));
         } else {
             $reservations = Reservation::where('user_id', $user->id)->with('shop')->get();
 

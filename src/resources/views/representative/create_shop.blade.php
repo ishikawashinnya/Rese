@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/representative/create_shop.css') }}" />
+<link rel="stylesheet" href="{{ asset('css/representative/shop_form.css') }}" />
 @endsection
 
 @section('content')
-<div class="create__shop-content">
+<div class="shop__form-content">
     <div class="content__left">
         <div class="content__left-ttl">
             <h2>店舗情報を入力してください</h2>
@@ -27,9 +27,9 @@
                 <label for="" class="form__label">エリア</label>
                 <div class="form__item">
                     <select name="area_id" id="area_id" class="select__item">
-                        <option value="" disabled {{ old('area') ? '' : 'selected' }}>-- エリアを選択 --</option>
+                        <option value="" disabled {{ old('area_id') ? '' : 'selected' }}>-- エリアを選択 --</option>
                         @foreach ($areas as $area)
-                            <option value="{{ $area->id }}" {{ old('area') == $area->id ? 'selected' : '' }}>{{ $area->name }}</option>
+                            <option value="{{ $area->id }}" {{ old('area_id') == $area->id ? 'selected' : '' }}>{{ $area->name }}</option>
                         @endforeach
                     </select>
                     <div class="error__item">
@@ -43,9 +43,9 @@
                 <label for="" class="form__label">ジャンル</label>
                 <div class="form__item">
                     <select name="genre_id" id="genre_id" class="select__item">
-                        <option value="" disabled {{ old('genre') ? '' : 'selected' }}>-- ジャンルを選択 --</option>
+                        <option value="" disabled {{ old('genre_id') ? '' : 'selected' }}>-- ジャンルを選択 --</option>
                         @foreach ($genres as $genre)
-                            <option value="{{ $genre->id }}" {{ old('genre') == $genre->id ? 'selected' : '' }}>{{ $genre->name }}</option>
+                            <option value="{{ $genre->id }}" {{ old('genre_id') == $genre->id ? 'selected' : '' }}>{{ $genre->name }}</option>
                         @endforeach
                     </select>
                     <div class="error__item">
@@ -112,65 +112,58 @@
         <div class="content__right-ttl">
             <h2>表示イメージ</h2>
         </div>
-        <div class="card__ttl"><h3>店舗一覧</h3></div>
-        <div class="card">
-            <div class="image__preview">
-                <img id ='card__image' src="#" alt="画像プレビュー">
-            </div>
-
-            <div class="card__item">
-                <div class="shop__name">
-                    <p id="name__preview">店名</p>
-                </div>
-                <div class="text__box">
-                    <p id="area__preview" class="area">#エリア</p>
-                    <p id="genre__preview" class="genre">#ジャンル</p>
-                </div>
-            </div>
-
-            <div class="card__btn">
-                <div class="detail__link">
-                    <a href="#" class="detail__link-btn">詳しくみる</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="detail__ttl"><h3>店舗詳細</h3></div>
-        <div class="shop__detail">
-            <div class="left__header">
-                <div class="content__left-ttl">
-                    <div class="return__link">
-                        <a href="#" class="return__btn"><</a>
-                    </div>
-                    <p class="detail__name">店名</p>
-                </div>
-            </div>
-            <div class="detail__img">
-                <img id='detail__image' src="#" alt="画像プレビュー">
-            </div>
         
-            <div class="shop__information">
-                <p id="detail__area">#エリア</p>
-                <p id="detail__genre">#ジャンル</p>
-            </div>
+        <div class="content__right-waper">
+            <div class="content__right-groupe">
+                <div class="card__ttl"><h3>店舗一覧</h3></div>
+                <div class="card">
+                    <div class="image__preview">
+                        <img id ='card__image' src="#" alt="画像プレビュー">
+                    </div>
 
-            <div class="shop__description">
-                <p id="detail__description">説明文</p>
+                    <div class="card__item">
+                        <div class="shop__name">
+                            <p id="name__preview">店名</p>
+                        </div>
+                        <div class="text__box">
+                            <p id="area__preview" class="area">#エリア</p>
+                            <p id="genre__preview" class="genre">#ジャンル</p>
+                        </div>
+                    </div>
+
+                    <div class="card__btn">
+                        <div class="detail__link">
+                            <a href="#" class="detail__link-btn">詳しくみる</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="create__alert">
-            @if(session('success'))
-                <div class="alert__success">
-                    <p class="alert__message">{{ session('success')}}</p> 
+            
+            <div class="content__right-groupe">
+                <div class="detail__ttl"><h3>店舗詳細</h3></div>
+                <div class="shop__detail">
+                    <div class="left__header">
+                        <div class="content__left-ttl">
+                            <div class="return__link">
+                                <a href="#" class="return__btn"><</a>
+                            </div>
+                            <p class="detail__name">店名</p>
+                        </div>
+                    </div>
+                    <div class="detail__img">
+                        <img id='detail__image' src="#" alt="画像プレビュー">
+                    </div>
+        
+                    <div class="shop__information">
+                        <p id="detail__area">#エリア</p>
+                        <p id="detail__genre">#ジャンル</p>
+                    </div>
+
+                    <div class="shop__description">
+                        <p id="detail__description">説明文</p>
+                    </div>
                 </div>
-             @endif
-        </div>
-        <div class="create__alert">
-            @if(session('error'))
-                <div class="alert__danger">
-                    <p class="alert__message">{{ session('error') }}</p>
-                </div>
-            @endif
+            </div>
         </div>
     </div>
 </div>
@@ -190,7 +183,7 @@
             // エリアのリアルタイム更新
             const areaSelect = document.getElementById('area_id');
             const areaPreview = document.getElementById('area__preview');
-            const adetailArea = document.getElementById('detail__area');
+            const detailArea = document.getElementById('detail__area');
         
             areaSelect.addEventListener('change', function () {
                 const areaText = areaSelect.options[areaSelect.selectedIndex].text || '#エリア';
