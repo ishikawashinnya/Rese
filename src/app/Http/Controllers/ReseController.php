@@ -76,8 +76,8 @@ class ReseController extends Controller
         if ($user->hasRole('admin')) {
             return view('admin.admin_mypage');
         } elseif ($user->hasRole('shop representative')) {
-            $representative = Representative::where('user_id', $user->id)->firstOrFail();
-            $shop = Shop::findOrFail($representative->shop_id);
+            $representative = Representative::where('user_id', $user->id)->first();
+            $shop = $representative ? Shop::find($representative->shop_id) : null;
 
             return view('representative.representative_mypage', compact('representative', 'shop'));
         } else {

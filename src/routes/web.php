@@ -74,8 +74,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 //Representative Routes
 Route::middleware(['auth', 'verified', 'role:shop representative'])->group(function () {
-    Route::get('/createshop', [RepresentativeController::class, 'create'])->name('shop.create');
+    Route::get('/shop/create', [RepresentativeController::class, 'create'])->name('shop.create');
     Route::post('/shop/store', [RepresentativeController::class, 'store'])->name('shop.store');
     Route::get('/shop/{id}/edit', [RepresentativeController::class, 'edit'])->name('shop.edit');
     Route::post('/shop/{id}', [RepresentativeController::class, 'update'])->name('shop.update');
+    Route::get('/reservationlist', [RepresentativeController::class, 'reservationList'])->name('reservation.list');
 });
