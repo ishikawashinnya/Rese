@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Storage;
 class RepresentativeController extends Controller
 {
     public function create() {
+
         $areas = Area::all();
         $genres = Genre::all();
 
@@ -43,7 +44,7 @@ class RepresentativeController extends Controller
         $representative->user_id = Auth::id();
         $representative->save();
 
-        return redirect()->back()->with('success', '店舗情報が保存されました');
+        return redirect()->back()->with('success', '店舗情報が作成されました');
     }
 
     public function edit($id) {
@@ -79,5 +80,19 @@ class RepresentativeController extends Controller
         $shop->save();
 
         return redirect()->back()->with('success', '店舗情報が更新されました');
+    }
+
+    public function reservationList() {
+        $user = Auth::user();
+
+        $representative = Representative::where('user_id', $user->id)->firstOrFail();
+        $shop = Shop::findOrFail($representative->shop_id);
+        $reservations = Reservation::where('shop_id', $shop->id)->paginate(10);
+
+        foreach ($reservations as $reservation) {
+            $reservation->reservation_time = Carbon::parse($reservation->reservation_time)->format('H:i');
+        }
+        
+        return view('representative.reservation_list', compact('shop', 'reservations'));
     }
 }

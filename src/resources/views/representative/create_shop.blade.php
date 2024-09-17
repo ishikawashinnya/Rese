@@ -8,7 +8,7 @@
 <div class="shop__form-content">
     <div class="content__left">
         <div class="content__left-ttl">
-            <h2>店舗情報を入力してください</h2>
+            <h2>店舗情報を入力</h2>
         </div>
         <form action="{{ route('shop.store') }}" method="POST" enctype="multipart/form-data" class="create__form">
             @csrf

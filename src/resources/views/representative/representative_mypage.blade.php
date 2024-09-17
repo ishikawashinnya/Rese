@@ -16,12 +16,16 @@
                 <li>
                     <a href="{{ route('shop.create') }}" class="representative__link-item"><h3>新規店舗情報作成</h3></a>
                 </li>
-                <li>
-                    <a href="{{ route('shop.edit', ['id' => $representative->id]) }}" class="representative__link-item"><h3>店舗情報変更</h3></a>
-                </li>
-                <li>
-                    <a href="#" class="representative__link-item"><h3>店舗予約状況確認</h3></a>
-                </li>
+
+                @if ($shop)
+                    <li>
+                        <a href="{{ route('shop.edit', ['id' => $representative->id]) }}" class="representative__link-item"><h3>店舗情報変更</h3></a>
+                    </li>
+                    <li>
+                        <a href="{{ route('reservation.list') }}" class="representative__link-item"><h3>店舗予約状況確認</h3></a>
+                    </li>
+                @endif
+                
                 <li>
                     <a href="#" class="representative__link-item"><h3>メール作成</h3></a>
                 </li>

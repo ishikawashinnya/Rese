@@ -1,0 +1,67 @@
+.list__content {
+    width: 100%;
+}
+
+.content__header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: solid 1px;
+}
+
+.return__link {
+    height: 28px;
+    width: 28px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px gray;
+    text-align: center;
+    background-color: #fff;
+}
+
+.return__btn {
+    text-decoration: none;
+    line-height: 28px;
+    font-weight: bold;
+}
+
+.header__ttl {
+    margin-left: 2%;
+}
+
+.content__main {
+    width: 100%;
+    padding-top: 20px;
+    display: flex;
+}
+
+.reservation__table {
+    margin: 0 auto;
+    text-align: left;
+    
+}
+
+.title__row {
+    white-space: nowrap;
+    padding: 0 50px;
+    line-height: 50px;
+    border-top: 1px solid #464545;
+    font-size: 20px;
+    
+}
+
+.table__label {
+    white-space: nowrap;
+    padding: 15px 100px 15px 60px;
+}
+
+.value__row {
+    padding: 10 0 10 50;
+    border-top: 1px solid #464545;
+    line-height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.value__list {
+    padding: 15px 100px 15px 60px;
+}
