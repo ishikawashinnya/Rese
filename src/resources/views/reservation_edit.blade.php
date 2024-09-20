@@ -15,7 +15,7 @@
         </div>
 
         <div class="content__img">
-            <img src="{{ $shop->image_url }}" alt="{{ $shop->name }}">
+            <img src="{{ filter_var($shop->image_url, FILTER_VALIDATE_URL) ? $shop->image_url : asset('storage/shop_images/' . $shop->image_url) }}" alt="{{ $shop->name }}">
         </div>
         
         <div class="shop__information">

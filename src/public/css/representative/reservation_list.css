@@ -10,18 +10,20 @@
 }
 
 .return__link {
-    height: 28px;
-    width: 28px;
+    width: 60px;
+    height: 35px;
+    background-color: grey;
+    border: 1px solid grey;
     border-radius: 5px;
-    box-shadow: 2px 2px 5px gray;
     text-align: center;
-    background-color: #fff;
+    line-height: 35px;
 }
 
-.return__btn {
+.back__button {
     text-decoration: none;
-    line-height: 28px;
-    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
 }
 
 .header__ttl {

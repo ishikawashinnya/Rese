@@ -95,18 +95,21 @@
                 </div>
             </div>
             <div class="form__inner">
-                <div class="create__btn">
+                <div class="form__btn">
+                    <div class="form__link">
+                        <a href="{{ route('mypage') }}" class="back__button">戻る</a>
+                    </div>
                     <button class="submit__btn" type="submit">作成する</button>
-                </div>
-                <div class="create__alert">
-                    @if(session('success'))
-                        <div class="alert__success">
-                            <p class="alert__message">{{ session('success')}}</p> 
-                        </div>
-                    @endif
                 </div>
             </div>
         </form>
+        <div class="create__alert">
+            @if(session('success'))
+                <div class="alert__success">
+                    <p class="alert__message">{{ session('success')}}</p> 
+                </div>
+            @endif
+        </div>
     </div>
     <div class="content__right">
         <div class="content__right-ttl">

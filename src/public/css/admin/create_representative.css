@@ -67,8 +67,8 @@
 .link__button {
     margin-right: auto;
     display: block;
-    background-color: rgb(63, 90, 242);
-    border: 1px solid rgb(63, 90, 242);
+    background-color: grey;
+    border: 1px solid grey;
     border-radius: 5px;
     padding: 3px 10px;
     cursor: pointer;
@@ -83,8 +83,8 @@
 .form__button-submit {
     margin-left: auto;
     display: block;
-    background-color: rgb(63, 90, 242);
-    border: 1px solid rgb(63, 90, 242);
+    background-color: #3560f6;
+    border: 1px solid #3560f6;
     border-radius: 5px;
     color: #fff;
     padding: 3px 10px;

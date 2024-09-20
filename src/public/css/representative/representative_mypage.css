@@ -1,18 +1,18 @@
-.admin__content {
+.representative__content {
     width: 100%;
     margin-top: 100px;
     text-align: center;
 }
 
-.admin__header {
+.representative__header {
     font-size: 30px;
 }
 
-.admin__main {
+.representative__main {
     width: 100%;
 }
 
-.admin__link-item {
+.representative__link-item {
     text-decoration: none;
     color: #3560f6;
     font-size: 28px;

@@ -8,7 +8,7 @@
 <div class="list__content">
     <div class="content__header">       
         <div class="return__link">
-            <a href="{{ route('mypage') }}" class="return__btn"><</a>
+            <a href="{{ route('mypage') }}" class="back__button">戻る</a>
         </div>
         <div class="header__ttl">
             <h2>{{ $shop->name }}の予約状況 </h2>

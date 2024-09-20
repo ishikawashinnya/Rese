@@ -1,14 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ReseController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Controllers\ReseController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Requests\RegisterRequest;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RepresentativeController;
+use App\Http\Controllers\MailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,13 +64,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/review/{shop_id}', [ReseController::class, 'createReview'])->name('reviews.create');
     Route::post('/review/{shop_id}', [ReseController::class, 'storeReview'])->name('reviews.store');
-
 });
 
 // Admin Routes
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/create', [AdminController::class, 'create'])->name('admin.create');
     Route::post('/admin/store', [AdminController::class, 'store'])->name('admin.store');
+   
 });
 
 //Representative Routes
@@ -80,3 +81,6 @@ Route::middleware(['auth', 'verified', 'role:shop representative'])->group(funct
     Route::post('/shop/{id}', [RepresentativeController::class, 'update'])->name('shop.update');
     Route::get('/reservationlist', [RepresentativeController::class, 'reservationList'])->name('reservation.list');
 });
+
+Route::get('/notification/create', [MailController::class, 'createNotification'])->name('notificatino.create');
+Route::post('/notification/send', [MailController::class, 'sendNotification'])->name('notification.send');
