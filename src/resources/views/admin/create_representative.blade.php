@@ -57,7 +57,7 @@
                 <div class="card__footer">
                     <div class="footer__link">
                         <button class="link__button">
-                            <a href="/mypage" class="back__link">戻る</a>
+                            <a href="{{ route('mypage') }}" class="back__link">戻る</a>
                         </button>
                     </div>
                     <div class="form__button">

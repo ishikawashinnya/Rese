@@ -1,0 +1,103 @@
+.notification__content {
+    width: 100%;
+    margin-top: 100px;
+    text-align: center;
+}
+
+.content__header,
+.content__wrap {
+    width: 100%;
+}
+
+.content__header-ttl {
+    font-size: 24px;
+}
+
+.alert__success {
+    margin-top: -2%;
+    font-size: 26px;
+    font-weight: bold;
+    color: #3560f6;
+}
+
+.alert__error {
+    margin-top: -2%;
+    font-size: 26px;
+    font-weight: bold;
+    color: #DC143C;
+}
+
+.content__main {
+    width: 100%;
+}
+
+.mail__form-groupe {
+    width: 100%;
+    margin-top: 3%;
+}
+
+.form__label {
+    margin-right: 22%;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.mail__destination {
+    margin-right: 13%;
+    margin-top: 0.5%;
+}
+
+.destination__select {
+    width: 14%;
+    height: 30px;
+    font-size: 18px;
+}
+
+.mail__textarea {
+    margin-left: 11%;
+    margin-top: 0.5%;
+}
+
+.textarea {
+    width: 40%;
+    font-size: 16px;
+}
+
+.form__button {
+    margin-right: 9%;
+    margin-top: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form__link {
+    width: 60px;
+    height: 35px;
+    background-color: grey;
+    border: 1px solid grey;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 35px;
+}
+
+.back__button {
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.form__button-btn {
+    margin-left: 3%;
+    width: 100px;
+    height: 35px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px gray;
+    text-align: center;
+    background-color: #3560f6;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+}

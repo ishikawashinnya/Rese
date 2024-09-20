@@ -87,7 +87,7 @@
                     @foreach($favorites as $favorite)
                         <div class="card">
                             <div class="shop__img">
-                                <img src="{{ $favorite->shop->image_url }}" alt="{{ $favorite->shop->name }}">
+                                <img src="{{ filter_var($favorite->shop->image_url, FILTER_VALIDATE_URL) ? $favorite->shop->image_url : asset('storage/shop_images/' . $favorite->shop->image_url) }}" alt="{{ $favorite->shop->name }}">
                             </div>
 
                             <div class="card__item">

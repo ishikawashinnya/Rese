@@ -13,12 +13,12 @@
     <div class="admin__main">
         <div class="admin__link">
             <a href="{{ route('admin.create') }}" class="admin__link-item">
-                <h3>店舗代表者作成</h3>
+                <p>店舗代表者作成</p>
             </a>
         </div>
         <div class="admin__link">
-            <a href="#" class="admin__link-item">
-                <h3>メール作成</h3>
+            <a href="{{ route('notificatino.create') }}" class="admin__link-item">
+                <p>メールフォーム</p>
             </a>
         </div>                 
     </div>
