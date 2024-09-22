@@ -31,6 +31,11 @@
                 <p>メールフォーム</p>
             </a>
         </div>
+        <div class="representative__link">
+            <a href="{{ route('qr.scan') }}" class="representative__link-item">
+                <p>QRコードスキャン</p>
+            </a>
+        </div>
     </div>
 </div>
 @endsection

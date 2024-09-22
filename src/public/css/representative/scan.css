@@ -1,0 +1,38 @@
+body {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #eeeeee;
+}
+
+.scan__content {
+    text-align: center;
+    padding: 10%;
+}
+
+#video {
+    width: 500px;
+    height: auto;
+}
+
+#output {
+    margin-top: 20px;
+}
+
+.return__link {
+    width: 60px;
+    height: 35px;
+    background-color: grey;
+    border: 1px solid grey;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 35px;
+}
+
+.back__button {
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+}

@@ -80,7 +80,11 @@ Route::middleware(['auth', 'verified', 'role:shop representative'])->group(funct
     Route::get('/shop/{id}/edit', [RepresentativeController::class, 'edit'])->name('shop.edit');
     Route::post('/shop/{id}', [RepresentativeController::class, 'update'])->name('shop.update');
     Route::get('/reservationlist', [RepresentativeController::class, 'reservationList'])->name('reservation.list');
+    Route::get('/scan', [RepresentativeController::class, 'scan'])->name('qr.scan');
 });
 
 Route::get('/notification/create', [MailController::class, 'createNotification'])->name('notificatino.create');
 Route::post('/notification/send', [MailController::class, 'sendNotification'])->name('notification.send');
+Route::get('reservation/check/{id}', [ReseController::class, 'check'])->name('reservation.check');
+
+
