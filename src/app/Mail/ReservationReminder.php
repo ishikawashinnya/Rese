@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Reservation;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ReservationReminder extends Mailable
 {
@@ -31,8 +32,17 @@ class ReservationReminder extends Mailable
      */
     public function build()
     {
+        $reservationId = $this->reservation->id;
+
+        $url = route('reservation.check', ['id' => $reservationId]);
+
+        $qrCode = QrCode::size(200)->generate($url);
+
         return $this->subject('予約リマインダー')
                     ->view('emails.reminder')
-                    ->with(['reservation' => $this->reservation]);
+                    ->with([
+                        'reservation' => $this->reservation,
+                        'qrCode' => $qrCode
+                    ]);
     }
 }

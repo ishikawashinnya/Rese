@@ -1,4 +1,4 @@
-.thanks__content {
+.content__wrap {
     width: 100%;
 }
 
@@ -14,12 +14,12 @@
     padding-bottom: 8%;
 }
 
-.thanks__message {
+.content__message {
     padding: 15% 15% 5% 15%;
     font-size: 25px;
 }
 
-.thanks__link {
+.content__link {
     width: 25%;
     text-align: center;
     padding: 2% 0;

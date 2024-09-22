@@ -21,9 +21,12 @@
 
         <p>ご予約店舗: {{$reservation->shop->name }}</p>
         <p>ご予約日: {{$reservation->reservation_date }}</p>
-        <p>ご予約時間: {{$reservation->reservation_time }}</p>
-        <p>ご予約人数: {{$reservation->reservation_num }}</p>
+        <p>ご予約時間: {{ \Carbon\Carbon::parse($reservation->reservation_time)->format('H:i') }}</p>
+        <p>ご予約人数: {{$reservation->reservation_num }}名様</p>
         
+        <p>ご来店いただいた際に、下記QRコードをスキャンしてお手続きをいたしますので、ご提示をお願いいたします。</p>
+        {!! $qrCode !!}
+
         <p>ご来店心よりお待ちしております。</p>
     </main>  
 </body>

@@ -95,4 +95,8 @@ class RepresentativeController extends Controller
         
         return view('representative.reservation_list', compact('shop', 'reservations'));
     }
-}
+
+    public function scan() {
+        return view('representative.scan');
+    }
+} 

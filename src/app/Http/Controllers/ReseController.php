@@ -81,7 +81,7 @@ class ReseController extends Controller
 
             return view('representative.representative_mypage', compact('representative', 'shop'));
         } else {
-            $reservations = Reservation::where('user_id', $user->id)->with('shop')->get();
+            $reservations = Reservation::where('user_id', $user->id)->with('shop')->orderBy('reservation_date')->get();
 
             foreach ($reservations as $reservation) {
                 $reservation->reservation_time = Carbon::parse($reservation->reservation_time)->format('H:i');
@@ -219,5 +219,14 @@ class ReseController extends Controller
         ]);
 
         return redirect()->route('reviews.create', ['shop_id' => $shop_id])->with('success', 'レビューが投稿されました');
+    }
+
+    //来店確認
+    public function check($id){
+        $reservation = Reservation::findOrFail($id);
+        $reservation->status = '来店済み';
+        $reservation->save();
+
+        return view('representative.visit_check');
     }
 }

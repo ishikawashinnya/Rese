@@ -8,15 +8,12 @@
 <div class="content__warp">
     <div class="card">
         <div class="content__message">
-            <p class="message">ご登録ありがとうございます</p>
+            <p class="message">ご来店確認完了</p>
         </div>
         
         <div class="content__link">
-            <a class="link__btn" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                ログインする
-            </a>
+            <a href="{{ route('mypage') }}" class="link__btn">戻る</a>
         </div>
     </div>
-    
 </div>
 @endsection
