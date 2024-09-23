@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RepresentativeController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +65,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/review/{shop_id}', [ReseController::class, 'createReview'])->name('reviews.create');
     Route::post('/review/{shop_id}', [ReseController::class, 'storeReview'])->name('reviews.store');
+
+    Route::post('/charge', [PaymentController::class, 'charge'])->name('charge');
 });
 
 // Admin Routes
@@ -81,6 +84,7 @@ Route::middleware(['auth', 'verified', 'role:shop representative'])->group(funct
     Route::post('/shop/{id}', [RepresentativeController::class, 'update'])->name('shop.update');
     Route::get('/reservationlist', [RepresentativeController::class, 'reservationList'])->name('reservation.list');
     Route::get('/scan', [RepresentativeController::class, 'scan'])->name('qr.scan');
+
 });
 
 Route::get('/notification/create', [MailController::class, 'createNotification'])->name('notificatino.create');
