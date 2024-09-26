@@ -15,6 +15,20 @@
         </div>     
     </div>
 
+    <div class="date">
+        <form action="{{ route('reservation.list') }}" method="get" class="date__form">
+            @csrf
+            <button class="before" name="date" value="{{ $yesterday->format('Y-m-d')}}"> &lt;</button>
+        </form>
+        <p class="date__today">
+            {{ $today->format('Y-m-d') }}
+        </p>
+        <form action="{{ route('reservation.list') }}" method="get" class="date__form">
+            @csrf
+            <button class="after" name="date" type="date" value="{{ $tomorrow->format('Y-m-d') }}"> &gt;</button>
+        </form>
+    </div>
+
     <div class="content__main">
         <table class="reservation__table">
             <tr class="title__row">
@@ -36,7 +50,7 @@
     </div>
 
     <div class="pagenation">
-        {{ $reservations->links() }}
+        {{ $reservations->links('vendor/pagination/custom') }}
     </div>
     
 

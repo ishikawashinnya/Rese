@@ -82,18 +82,32 @@ class RepresentativeController extends Controller
         return redirect()->back()->with('success', '店舗情報が更新されました');
     }
 
-    public function reservationList() {
+    public function reservationList(Request $request) {
+        // 日付パラメータを処理
+        if (is_null($request->date)) {
+            $yesterday = Carbon::yesterday();
+            $today = Carbon::today();
+            $tomorrow = Carbon::tomorrow();
+        } else {
+            $today = new Carbon($request->date);
+            $yesterday = (new Carbon($request->date))->subDay();
+            $tomorrow = (new Carbon($request->date))->addDay();
+        }
+
         $user = Auth::user();
 
         $representative = Representative::where('user_id', $user->id)->firstOrFail();
         $shop = Shop::findOrFail($representative->shop_id);
-        $reservations = Reservation::where('shop_id', $shop->id)->paginate(10);
+
+        $reservations = Reservation::where('shop_id', $shop->id)
+                                   ->where('reservation_date', $today)
+                                   ->paginate(10);
 
         foreach ($reservations as $reservation) {
             $reservation->reservation_time = Carbon::parse($reservation->reservation_time)->format('H:i');
         }
         
-        return view('representative.reservation_list', compact('shop', 'reservations'));
+        return view('representative.reservation_list', compact('shop', 'reservations', 'yesterday', 'today', 'tomorrow'));
     }
 
     public function scan() {

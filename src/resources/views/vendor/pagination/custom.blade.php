@@ -13,7 +13,7 @@
                 </li>
             @else
                 <li class="pagination__list">
-                    <a class="pagination__item" href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')">
+                    <a class="pagination__item" href="{{ $paginator->previousPageUrl() }}&date={{ request('date') }}" rel="prev" aria-label="@lang('pagination.previous')">
                         ‹ 前へ
                     </a>
                 </li>
@@ -24,7 +24,7 @@
             {{-- Next Page Link --}}
             @if ($paginator->hasMorePages())
                 <li class="pagination__list">
-                    <a class="pagination__item" href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')">
+                    <a class="pagination__item" href="{{ $paginator->nextPageUrl() }}&date={{ request('date') }}" rel="next" aria-label="@lang('pagination.next')">
                         次へ ›
                     </a>
                 </li>

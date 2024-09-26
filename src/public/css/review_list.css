@@ -1,9 +1,14 @@
+.list__content {
+    width: 100%;
+}
+
 .content__header {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: solid 1px ;
+    margin-left: 1%;
 }
 
 .header__group {
@@ -271,7 +276,7 @@
     width: 100%;
 }
 
-.user__container {
+.review__container {
     width: 100%;
     display: flex;
     border-bottom: solid 1px;
@@ -280,6 +285,7 @@
 
 .container__group {
     width: 18%;
+    margin-left: 1%;
 }
 
 .user__comment {

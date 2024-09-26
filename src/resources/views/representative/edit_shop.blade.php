@@ -106,12 +106,12 @@
             </div>
         </form>
         <div class="create__alert">
-                    @if(session('success'))
-                        <div class="alert__success">
-                            <p class="alert__message">{{ session('success')}}</p> 
-                        </div>
-                    @endif
+            @if(session('success'))
+                <div class="alert__success">
+                    <p class="alert__message">{{ session('success')}}</p> 
                 </div>
+            @endif
+        </div>
     </div>
 
     <div class="content__right">

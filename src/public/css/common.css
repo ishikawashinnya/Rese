@@ -18,6 +18,7 @@ header {
 .header__left {
     display: flex;
     justify-content: space-between;
+    margin-left: 1%;
 }
 
 .hamburger__menu {
@@ -149,4 +150,12 @@ main {
     max-width: 1280px;
     margin: 0 auto;
     background-color: #eeeeee;
+}
+
+@media screen and (max-width: 768px) {
+    .header__left {
+        display: flex;
+        justify-content: space-between;
+        margin-left: 1%;
+    }
 }

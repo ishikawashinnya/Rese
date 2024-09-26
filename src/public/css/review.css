@@ -15,6 +15,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-left: 2%;
 }
 
 .left__header-ttl {
@@ -71,6 +72,7 @@
     width: 45%;
     background-color: #eeeeee;
     font-weight: bold;
+    margin-left: 1%;
 }
 
 .content__img {

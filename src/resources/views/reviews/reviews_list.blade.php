@@ -29,7 +29,7 @@
 
     <div class="content__main">
         @foreach($reviews as $review)
-            <div class="user__container">
+            <div class="review__container">
                 <div class="container__group">
                     <div class="user__name">
                         <p>{{ $review->user->name }}さん</p>
