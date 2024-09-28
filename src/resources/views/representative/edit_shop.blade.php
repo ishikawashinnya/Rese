@@ -99,7 +99,7 @@
             <div class="form__inner">
                 <div class="form__btn">
                     <div class="form__link">
-                        <a href="{{ route('mypage') }}" class="back__button">戻る</a>
+                        <a href="{{ route('editshop.list') }}" class="back__button">戻る</a>
                     </div>
                     <button class="submit__btn" type="submit">更新する</button>
                 </div> 
