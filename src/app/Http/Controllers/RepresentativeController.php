@@ -47,9 +47,19 @@ class RepresentativeController extends Controller
         return redirect()->back()->with('success', '店舗情報が作成されました');
     }
 
-    public function edit($id) {
-        $representative = Representative::findOrFail($id);
-        $shop = Shop::findOrFail($representative->shop_id);
+    public function editShopList() {
+        $user = Auth::user();
+        $representatives = Representative::with('shop')->where('user_id', $user->id)->paginate(20);
+
+
+
+        return view('representative.edit_shop_list', compact('user', 'representatives'));
+    }
+
+    public function edit($shopId) {
+        $shop = Shop::findOrFail($shopId);
+
+        $representative = Representative::where('shop_id', $shopId)->firstOrFail();
         $user = User::findOrFail($representative->user_id);
         $areas = Area::all();
         $genres = Genre::all();
@@ -82,7 +92,16 @@ class RepresentativeController extends Controller
         return redirect()->back()->with('success', '店舗情報が更新されました');
     }
 
-    public function reservationList(Request $request) {
+    public function reservationShopList() {
+        $user = Auth::user();
+        $representatives = Representative::with('shop')
+                                         ->where('user_id', $user->id)
+                                         ->paginate(20);
+
+        return view('representative.reservation_shop_list', compact('user', 'representatives'));
+    }
+
+    public function reservationList(Request $request, $shopId) {
         // 日付パラメータを処理
         if (is_null($request->date)) {
             $yesterday = Carbon::yesterday();
@@ -96,7 +115,10 @@ class RepresentativeController extends Controller
 
         $user = Auth::user();
 
-        $representative = Representative::where('user_id', $user->id)->firstOrFail();
+        $representative = Representative::where('user_id', $user->id)
+                                        ->where('shop_id', $shopId)
+                                        ->firstOrFail();
+
         $shop = Shop::findOrFail($representative->shop_id);
 
         $reservations = Reservation::where('shop_id', $shop->id)

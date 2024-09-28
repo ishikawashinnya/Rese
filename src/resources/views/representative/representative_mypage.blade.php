@@ -18,10 +18,10 @@
         </div>
         <div class="representative__link">
             @if ($shop)
-                <a href="{{ route('shop.edit', ['id' => $representative->id]) }}" class="representative__link-item">
+                <a href="{{ route('editshop.list') }}" class="representative__link-item">
                     <p>店舗情報変更</p>
                 </a>   
-                <a href="{{ route('reservation.list') }}" class="representative__link-item">
+                <a href="{{ route('reservationshop.list') }}" class="representative__link-item">
                     <p>店舗予約状況確認</p>
                 </a>
             @endif

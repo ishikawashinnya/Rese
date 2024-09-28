@@ -77,9 +77,8 @@
     white-space: nowrap;
     padding: 0 50px;
     line-height: 50px;
-    border-top: 1px solid #464545;
+    border-bottom: 3px double #464545;
     font-size: 20px;
-    
 }
 
 .table__label {
