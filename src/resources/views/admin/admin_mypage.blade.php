@@ -16,6 +16,7 @@
                 <p>店舗代表者作成</p>
             </a>
         </div>
+        
         <div class="admin__link">
             <a href="{{ route('notificatino.create') }}" class="admin__link-item">
                 <p>メールフォーム</p>

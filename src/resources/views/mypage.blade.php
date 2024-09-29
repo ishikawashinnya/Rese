@@ -17,6 +17,21 @@
         <div class="mypage__main-left">
             <div class="main-left__ttl">
                 <p class="main__ttl">予約状況</p>
+                <div class="payment">
+                    <form action="{{ asset('charge') }}" method="POST" class="payment__form">
+                    @csrf
+                        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="{{ config('services.stripe.key') }}"
+                            data-amount="1000"
+                            data-name="stripe決済"
+                            data-label="決済をする"
+                            data-description="これはデモ決済です"
+                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                            data-locale="auto"
+                            data-currency="JPY">
+                        </script>
+                    </form>
+                </div>  
             </div>
 
             @foreach($reservations as $reservation)
@@ -32,20 +47,6 @@
                         </div>
 
                         <div class="confirmation__header-right">
-                            <form action="{{ asset('charge') }}" method="POST" class="payment__form">
-                                @csrf
-                                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                    data-key="{{ config('services.stripe.key') }}"
-                                    data-amount="1000"
-                                    data-name="stripe決済"
-                                    data-label="決済をする"
-                                    data-description="これはデモ決済です"
-                                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                                    data-locale="auto"
-                                    data-currency="JPY">
-                                </script>
-                            </form>
-                            
                             <form action="{{ route('reservation.edit', ['id' => $reservation->id]) }}" method='get' class="reservation__form">
                                 @csrf
                                 <div class="header__right-img">

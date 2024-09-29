@@ -33,6 +33,5 @@
     <div class="pagenation">
         {{ $representatives->links('vendor/pagination/custom') }}
     </div>
-    
-
+</div>
 @endsection

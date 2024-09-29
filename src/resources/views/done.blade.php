@@ -15,6 +15,5 @@
             <a href="{{ route('mypage') }}" class="link__btn">戻る</a>
         </div>
     </div>
-    
 </div>
 @endsection

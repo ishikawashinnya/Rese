@@ -16,6 +16,7 @@
                 <p>新規店舗情報作成</p>
             </a>
         </div>
+
         <div class="representative__link">
             @if ($shop)
                 <a href="{{ route('editshop.list') }}" class="representative__link-item">
@@ -26,11 +27,13 @@
                 </a>
             @endif
         </div>
+
         <div class="representative__link">
             <a href="{{ route('notificatino.create') }}" class="representative__link-item">
                 <p>メールフォーム</p>
             </a>
         </div>
+        
         <div class="representative__link">
             <a href="{{ route('qr.scan') }}" class="representative__link-item">
                 <p>QRコードスキャン</p>

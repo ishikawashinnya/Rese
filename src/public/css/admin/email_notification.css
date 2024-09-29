@@ -33,38 +33,36 @@
 
 .mail__form-groupe {
     width: 100%;
-    margin-top: 3%;
+    margin-top: 2%;
 }
 
 .form__label {
-    margin-right: 22%;
     font-size: 20px;
     font-weight: bold;
 }
 
 .mail__destination {
-    margin-right: 13%;
     margin-top: 0.5%;
 }
 
 .destination__select {
-    width: 14%;
-    height: 30px;
+    width: 150px;
+    height: 35px;
     font-size: 18px;
+    text-align: center;
 }
 
 .mail__textarea {
-    margin-left: 11%;
     margin-top: 0.5%;
+    width: 100%;
 }
 
 .textarea {
-    width: 40%;
-    font-size: 16px;
+    width: 60%;
+    font-size: 24px;
 }
 
 .form__button {
-    margin-right: 9%;
     margin-top: 2%;
     display: flex;
     justify-content: center;
@@ -100,4 +98,12 @@
     border: none;
     cursor: pointer;
     font-size: 15px;
+}
+
+@media screen and (max-width: 768px) {
+    .textarea {
+        width: 80%;
+        font-size: 20px;
+    }
+
 }

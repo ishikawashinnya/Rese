@@ -3,11 +3,12 @@
 }
 
 .content__header {
-    width: 100%;
+    width: 98%;
     display: flex;
     align-items: center;
     border-bottom: solid 1px;
     margin-left: 1%;
+    margin-right: 1%;
 }
 
 .return__link {
@@ -32,6 +33,7 @@
 }
 
 .date {
+    width: 100%;
     display: flex;
     justify-content: center;
     padding-top: 20px;
@@ -62,38 +64,64 @@
 }
 
 .content__main {
-    width: 100%;
+    width: 98%;
+    margin-left: 1%;
+    margin-right: 1%;
     padding-top: 20px;
-    display: flex;
 }
 
 .reservation__table {
+    width: 100%;
     margin: 0 auto;
     text-align: left;
-    
 }
 
 .title__row {
-    white-space: nowrap;
+    width: 100%;
     padding: 0 50px;
     line-height: 50px;
     border-bottom: 3px double #464545;
     font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .table__label {
+    width: 24%;
     white-space: nowrap;
-    padding: 15px 100px 15px 60px;
+    margin-left: 1%;
 }
 
 .value__row {
-    padding: 10 0 10 50;
+    width: 100%;
+    padding: 0 50px;
     border-top: 1px solid #464545;
     line-height: 50px;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .value__list {
-    padding: 15px 100px 15px 60px;
+    white-space: nowrap;
+    width: 24%;
+    margin-left: 1%;
+}
+
+@media screen and (max-width: 768px) {
+    .table__label {
+        width: 20%;
+        margin-right: 5%;
+        font-size: clamp(14px, 1vw, 24px);   
+    }
+
+    .value__list {
+        width: 20%;
+        margin-right: 5%;
+        font-size: clamp(14px, 1vw, 24px);
+    }
+
 }

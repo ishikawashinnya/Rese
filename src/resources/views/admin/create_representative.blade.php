@@ -22,7 +22,7 @@
             <form class="form" action="{{ route('admin.store') }}" method="post">
                 @csrf
                 <div class="form__group-content">
-                    <div class="form__input--text">
+                    <div class="form__input-text">
                         <input type="text" name="name" value="{{ old('name') }}" placeholder="代表者名" />
                     </div>
                     <div class="form__error">
@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="form__group-content">
-                    <div class="form__input--text">
+                    <div class="form__input-text">
                         <input type="email" name="email" value="{{ old('email') }}" placeholder="メールアドレス" />
                     </div>
                     <div class="form__error">
@@ -44,7 +44,7 @@
                 </div>
 
                 <div class="form__group-content">
-                    <div class="form__input--text">
+                    <div class="form__input-text">
                         <input type="password" name="password" placeholder="パスワード" />
                     </div>
                     <div class="form__error">
