@@ -12,6 +12,12 @@
     width: 100%;
 }
 
+.representative__link {
+    width: 55%;
+    max-width: 250px;
+    margin: 0 auto;
+}
+
 .representative__link-item {
     text-decoration: none;
     color: #3560f6;

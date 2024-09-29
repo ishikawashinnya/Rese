@@ -14,6 +14,7 @@
                 </div>
                 <p class="shop__name">{{ $shop->name }}</p>
             </div>
+            
             <div class="shop__favorit">
                 @if (Auth::check())
                     @if (in_array($shop->id, $favorites))
@@ -85,11 +86,13 @@
                         <label for="rating5">5.非常に満足</label>
                     </div>
                 </div>
+
                 <div class="comment">
                     <label for="comment"></label>
                     <textarea name="comment" class="comment__area" rows="11" id="comment" placeholder="コメント" maxlength="400">{{ old('comment') }}</textarea>
                     <div id="charCount" class="char-count">0/400(最高文字数)</div>
                 </div>
+
                 <div class="review__image">
                    <label class="review__image-ttl">画像</label>
                     <div class="review__image-form">
@@ -99,6 +102,7 @@
                         <img id ='imagePreview' src="#" alt="画像プレビュー">
                     </div>
                 </div>
+
                 <div class="post__form">
                     <div class="review__btn">
                         <button class="submit__btn" type="submit">投稿する</button>
@@ -123,37 +127,36 @@
     </div>
 </div>
 <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const textarea = document.getElementById('comment');
-            const charCount = document.getElementById('charCount');
-            const maxLength = textarea.maxLength;
+    document.addEventListener('DOMContentLoaded', function () {
+        const textarea = document.getElementById('comment');
+        const charCount = document.getElementById('charCount');
+        const maxLength = textarea.maxLength;
 
-            function updateCharCount() {
-                const currentLength = textarea.value.length;
-                charCount.textContent = `${currentLength}/${maxLength}(最高文字数)`;
+        function updateCharCount() {
+            const currentLength = textarea.value.length;
+            charCount.textContent = `${currentLength}/${maxLength}(最高文字数)`;
+        }
+
+        textarea.addEventListener('input', updateCharCount);
+        updateCharCount();
+
+        const imageInput = document.querySelector('.review__image-item');
+        const imagePreview = document.getElementById('imagePreview');
+
+        imageInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
             }
-
-            textarea.addEventListener('input', updateCharCount);
-            updateCharCount();
-
-            const imageInput = document.querySelector('.review__image-item');
-            const imagePreview = document.getElementById('imagePreview');
-
-            imageInput.addEventListener('change', function(event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        imagePreview.src = e.target.result;
-                        imagePreview.style.display = 'block';
-                    };
-                    reader.readAsDataURL(file);
-                }
-                else {
-                    imagePreview.style.display = 'none';
-                }
-            })
-        });
+            else {
+                imagePreview.style.display = 'none';
+            }
+        })
+    });
 </script>
-
 @endsection

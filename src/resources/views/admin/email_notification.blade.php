@@ -36,9 +36,10 @@
                 <div class="mail__form-groupe">
                     <label for="textarea" class="form__label">本文</label>
                     <div class="mail__textarea">
-                        <textarea id="textarea" class="textarea" name="message" rows="10" required></textarea>
+                        <textarea id="textarea" class="textarea" name="message" rows="15" required></textarea>
                     </div>
                 </div>
+
                 <div class="form__button">
                     <div class="form__link">
                         <a href="{{ route('mypage') }}" class="back__button">戻る</a>
@@ -49,5 +50,4 @@
         </div>
     </div>
 </div>
-    
 @endsection

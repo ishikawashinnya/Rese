@@ -33,16 +33,13 @@
         <table class="reservation__table">
             <tr class="title__row">
                 <th class="table__label">お客様名</th>
-                <th class="table__label">予約日</th>
                 <th class="table__label">予約時間</th>
                 <th class="table__label">予約人数</th>
                 <th class="table__label">予約状況</th>
             </tr>
-
             @foreach($reservations as $reservation)
                 <tr class="value__row">
                     <td class="value__list">{{ $reservation->user->name }}様</td>
-                    <td class="value__list">{{ $reservation->reservation_date }}</td>
                     <td class="value__list">{{ $reservation->reservation_time }}</td>
                     <td class="value__list">{{ $reservation->reservation_num }}名</td>
                     <td class="value__list">{{ $reservation->status }}</td>
@@ -54,6 +51,5 @@
     <div class="pagenation">
         {{ $reservations->links('vendor/pagination/custom') }}
     </div>
-    
-
+</div>
 @endsection

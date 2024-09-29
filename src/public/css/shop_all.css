@@ -194,9 +194,12 @@
         border-radius: 5px;
         box-shadow: 2px 2px 5px gray;
         background-color: #fff;
-        font-size: 1.2rem;
         width: 99%;
         height: 50px;
+    }
+
+    .search__form-select {
+        font-size: clamp(10px, 2vw, 16px);
     }
 
     .card {
@@ -216,4 +219,14 @@
     .card:nth-child(3n+1) {
         margin-left: 1%;
     }  
+
+    .detail__link {
+        width: 40%;
+        text-align: center;
+        padding: 2% 0;
+        margin-left: 5%;
+        cursor: pointer;
+        background-color: #3560f6;
+        border-radius: 5px;
+    }
 }

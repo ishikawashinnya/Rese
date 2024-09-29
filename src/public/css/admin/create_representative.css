@@ -32,7 +32,7 @@
     align-items: center;
 }
 
-.form__input--text {
+.form__input-text {
     margin-left: 10%;
     position: relative;
     display: flex;
@@ -40,7 +40,7 @@
     padding-bottom: 5%;
 }
 
-.form__input--text input {
+.form__input-text input {
     width: 100%;
     padding-top: 10px;
     margin-left: 10px;

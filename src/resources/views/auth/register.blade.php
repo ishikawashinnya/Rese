@@ -15,7 +15,7 @@
             <form class="form" action="/register" method="post">
                 @csrf
                 <div class="form__group-content">
-                    <div class="form__input--text">
+                    <div class="form__input-text">
                         <div class="icon__img">
                             <img src="{{ asset('icon/person.svg') }}" alt="" class="icon">
                         </div>
@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="form__group-content">
-                    <div class="form__input--text">
+                    <div class="form__input-text">
                         <div class="icon__img">
                             <img src="{{ asset('icon/mail.svg') }}" alt="" class="icon">
                         </div>
@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="form__group-content">
-                    <div class="form__input--text">
+                    <div class="form__input-text">
                         <div class="icon__img">
                             <img src="{{ asset('icon/key.svg') }}" alt="" class="icon">
                         </div>
@@ -62,6 +62,5 @@
             </form>
         </div>
     </div>
-    
 </div>
 @endsection

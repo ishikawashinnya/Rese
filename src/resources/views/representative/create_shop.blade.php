@@ -7,7 +7,7 @@
 @section('content')
 <div class="shop__form-content">
     <div class="content__left">
-        <div class="content__left-ttl">
+        <div class="content__ttl">
             <h2>店舗情報を入力</h2>
         </div>
         <form action="{{ route('shop.store') }}" method="POST" enctype="multipart/form-data" class="create__form">
@@ -23,6 +23,7 @@
                     </div>
                 </div>  
             </div>
+
             <div class="form__inner">
                 <label for="" class="form__label">エリア</label>
                 <div class="form__item">
@@ -39,6 +40,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="form__inner">
                 <label for="" class="form__label">ジャンル</label>
                 <div class="form__item">
@@ -55,6 +57,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="form__inner">
                 <label for="address" class="form__label">住所</label>
                 <div class="form__item">
@@ -66,11 +69,12 @@
                     </div>
                 </div>
             </div>
+
             <div class="form__inner">
                 <div class="description__label">
                     <label for="description" class="form__label">店舗説明</label>
                     <div id="charCount" class="char-count">
-                        0/150(最高文字数)
+                        0/150(文字数)
                     </div>
                 </div>
                 <div>
@@ -83,6 +87,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="form__inner">
                 <label class="form__label">店舗画像</label>
                 <div class="shop__image">
@@ -94,6 +99,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="form__inner">
                 <div class="form__btn">
                     <div class="form__link">
@@ -111,8 +117,9 @@
             @endif
         </div>
     </div>
+
     <div class="content__right">
-        <div class="content__right-ttl">
+        <div class="content__ttl">
             <h2>表示イメージ</h2>
         </div>
         
@@ -145,14 +152,15 @@
             <div class="content__right-groupe">
                 <div class="detail__ttl"><h3>店舗詳細</h3></div>
                 <div class="shop__detail">
-                    <div class="left__header">
-                        <div class="content__left-ttl">
+                    <div class="detail__header">
+                        <div class="detail__ttl">
                             <div class="return__link">
                                 <a href="#" class="return__btn"><</a>
                             </div>
                             <p class="detail__name">店名</p>
                         </div>
                     </div>
+
                     <div class="detail__img">
                         <img id='detail__image' src="#" alt="画像プレビュー">
                     </div>
@@ -172,86 +180,85 @@
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-            // 店名のリアルタイム更新
-            const nameInput = document.getElementById('name');
-            const shopNamePreview = document.getElementById('name__preview');
-            const detailShopName = document.querySelector('.detail__name');
+        // 店名のリアルタイム更新
+        const nameInput = document.getElementById('name');
+        const shopNamePreview = document.getElementById('name__preview');
+        const detailShopName = document.querySelector('.detail__name');
         
-            nameInput.addEventListener('input', function () {
-                const nameValue = nameInput.value || '店名';
-                shopNamePreview.textContent = nameValue;
-                detailShopName.textContent = nameValue;
-            });
+        nameInput.addEventListener('input', function () {
+            const nameValue = nameInput.value || '店名';
+            shopNamePreview.textContent = nameValue;
+            detailShopName.textContent = nameValue;
+        });
 
-            // エリアのリアルタイム更新
-            const areaSelect = document.getElementById('area_id');
-            const areaPreview = document.getElementById('area__preview');
-            const detailArea = document.getElementById('detail__area');
+        // エリアのリアルタイム更新
+        const areaSelect = document.getElementById('area_id');
+        const areaPreview = document.getElementById('area__preview');
+        const detailArea = document.getElementById('detail__area');
         
-            areaSelect.addEventListener('change', function () {
-                const areaText = areaSelect.options[areaSelect.selectedIndex].text || '#エリア';
-                areaPreview.textContent = `#${areaText}`;
-                detailArea.textContent = `#${areaText}`;
-            
-            });
+        areaSelect.addEventListener('change', function () {
+            const areaText = areaSelect.options[areaSelect.selectedIndex].text || '#エリア';
+            areaPreview.textContent = `#${areaText}`;
+            detailArea.textContent = `#${areaText}`;  
+        });
 
-            // ジャンルのリアルタイム更新
-            const genreSelect = document.getElementById('genre_id');
-            const genrePreview = document.getElementById('genre__preview');
-            const detailGenre = document.getElementById('detail__genre');
+        // ジャンルのリアルタイム更新
+        const genreSelect = document.getElementById('genre_id');
+        const genrePreview = document.getElementById('genre__preview');
+        const detailGenre = document.getElementById('detail__genre');
         
-            genreSelect.addEventListener('change', function () {
-                const genreText = genreSelect.options[genreSelect.selectedIndex].text || '#ジャンル';
-                genrePreview.textContent = `#${genreText}`;
-                detailGenre.textContent = `#${genreText}`;
-            });
+        genreSelect.addEventListener('change', function () {
+            const genreText = genreSelect.options[genreSelect.selectedIndex].text || '#ジャンル';
+            genrePreview.textContent = `#${genreText}`;
+            detailGenre.textContent = `#${genreText}`;
+        });
 
-            // 店舗説明のリアルタイム更新
-            const descriptionTextarea = document.getElementById('description');
-            const detailDescription = document.getElementById('detail__description');
+        // 店舗説明のリアルタイム更新
+        const descriptionTextarea = document.getElementById('description');
+        const detailDescription = document.getElementById('detail__description');
 
-            descriptionTextarea.addEventListener('input', function () {
-                detailDescription.textContent = descriptionTextarea.value || '説明文';
-            })
+        descriptionTextarea.addEventListener('input', function () {
+            detailDescription.textContent = descriptionTextarea.value || '説明文';
+        })
 
 
-            // 文字数カウントの更新
-            const textarea = document.getElementById('description');
-            const charCount = document.getElementById('charCount');
-            const maxLength = textarea.maxLength;
+        // 文字数カウントの更新
+        const textarea = document.getElementById('description');
+        const charCount = document.getElementById('charCount');
+        const maxLength = textarea.maxLength;
 
-            function updateCharCount() {
-                const currentLength = textarea.value.length;
-                charCount.textContent = `${currentLength}/${maxLength}(最高文字数)`;
+        function updateCharCount() {
+            const currentLength = textarea.value.length;
+            charCount.textContent = `${currentLength}/${maxLength}(文字数)`;
+        }
+
+        textarea.addEventListener('input', updateCharCount);
+        updateCharCount();
+
+        // 画像プレビューのリアルタイム更新
+        const imageInput = document.querySelector('.shop__image-item');
+        const cardImagePreview = document.getElementById('card__image');
+        const detailImagePreview = document.getElementById('detail__image');
+
+        imageInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    cardImagePreview.src = e.target.result;
+                    detailImagePreview.src = e.target.result;
+                    cardImagePreview.style.display = 'block';
+                    detailImagePreview.style.display = 'block';
+                    cardImagePreview.style.objectFit = 'cover';
+                    detailImagePreview.style.objectFit = 'cover';
+                };
+                reader.readAsDataURL(file);
             }
-
-            textarea.addEventListener('input', updateCharCount);
-            updateCharCount();
-
-            // 画像プレビューのリアルタイム更新
-            const imageInput = document.querySelector('.shop__image-item');
-            const cardImagePreview = document.getElementById('card__image');
-            const detailImagePreview = document.getElementById('detail__image');
-
-            imageInput.addEventListener('change', function(event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        cardImagePreview.src = e.target.result;
-                        detailImagePreview.src = e.target.result;
-                        cardImagePreview.style.display = 'block';
-                        detailImagePreview.style.display = 'block';
-                        cardImagePreview.style.objectFit = 'cover';
-                        detailImagePreview.style.objectFit = 'cover';
-                    };
-                    reader.readAsDataURL(file);
-                }
-                else {
-                    cardImagePreview.style.display = 'none';
-                    detailImagePreview.style.display = 'none';
-                }
-            })
+            else {
+                cardImagePreview.style.display = 'none';
+                detailImagePreview.style.display = 'none';
+            }
+        })
     });
 </script>
 @endsection
