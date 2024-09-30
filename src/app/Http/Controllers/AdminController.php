@@ -23,9 +23,6 @@ class AdminController extends Controller
 
         $user->assignRole('shop representative');
 
-        $user->sendEmailVerificationNotification();
-
-        return redirect()->route('admin.create')->with('success', '確認メールが送信されました');
+        return redirect()->route('admin.create')->with('success', '代表者が作成されました');
     }
-
 }

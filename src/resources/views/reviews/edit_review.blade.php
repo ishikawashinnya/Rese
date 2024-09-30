@@ -15,28 +15,11 @@
                 <p class="shop__name">{{ $shop->name }}</p>
             </div>
             
-            <div class="shop__favorit">
-                @if (Auth::check())
-                    @if (in_array($shop->id, $favorites))
-                        <form action="{{ route('favorite.destroy', $shop->id) }}" method="POST" class="shop__favorit-form">
-                            <input type="hidden" name="shop_id" value="{{ $shop->id }}">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="favorit__form-btn">
-                                <img src="{{ asset('icon/heart_color.svg') }}" alt="お気に入り解除" class="heart-icon">
-                            </button>
-                        </form>
-                    @else
-                        <form action="{{ route('favorite.create') }}" method="POST" class="shop__favorit-form">
-                            @csrf
-                            <input type="hidden" name="shop_id" value="{{ $shop->id }}">
-                            <button type="submit" class="favorit__form-btn">
-                                <img src="{{ asset('icon/heart_review.svg') }}" alt="お気に入り登録" class="heart-icon">
-                            </button>
-                        </form>
-                    @endif
-                @endif
-            </div>
+            <form action="{{ route('reviews.destroy', ['shop_id' => $shop->id]) }}" method="POST" class="delete__form">
+                @csrf
+                @method('DELETE')
+                <button class="delete__btn" type="submit">削除する</button>
+            </form>
         </div>
     </div>
 
@@ -61,7 +44,7 @@
         </div>
 
         <div class="content__right">
-            <form action="{{ route('review.update', $review->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('reviews.update', ['shop_id' => $shop->id]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="shop_id" value="{{ $review->shop_id }}">
 
@@ -113,6 +96,7 @@
                     <div class="review__btn">
                         <button class="submit__btn" type="submit">更新する</button>
                     </div>
+                    
                     <div class="review__alert">
                         @if(session('success'))
                             <div class="alert__success">
@@ -129,6 +113,7 @@
                     </div>
                 </div>
             </form>
+            
         </div>
     </div>
 </div>

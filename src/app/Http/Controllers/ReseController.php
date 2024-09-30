@@ -11,11 +11,13 @@ use App\Models\User;
 use App\Models\Review;
 use App\Models\Representative;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Pagination\Paginator;
 use App\Http\Requests\ReservationRequest;
 use App\Http\Requests\ReviewRequest;
-use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use Illuminate\Pagination\Paginator;
+
 
 
 class ReseController extends Controller
@@ -56,7 +58,6 @@ class ReseController extends Controller
         } else {
             return view('shop_all', compact('shops', 'areas', 'genres'));
         }
-        
     }
 
     //飲食店詳細ページ
@@ -212,7 +213,6 @@ class ReseController extends Controller
         $reviews = Review::where('shop_id', $shop_id)->with('user')->paginate(10);
         $averageRating = Review::where('shop_id', $shop_id)->avg('rating');
 
-
         return view('reviews.reviews_list', compact('shop', 'reviews', 'averageRating'));
     }
 
@@ -250,6 +250,61 @@ class ReseController extends Controller
         ]);
 
         return redirect()->route('reviews.create', ['shop_id' => $shop_id])->with('success', 'レビューが投稿されました');
+    }
+
+    //レビュー更新
+    public function editReview($shop_id) {
+        $shop = Shop::findOrFail($shop_id);
+        $user = Auth::user();
+        $favorites = Favorite::where('user_id', $user->id)->pluck('shop_id')->toArray();
+
+        $review = Review::where('user_id', $user->id)
+                        ->where('shop_id', $shop_id)
+                        ->first();
+
+        return view('reviews.edit_review', compact('shop', 'review', 'favorites'));
+    }
+
+    public function updateReview(ReviewRequest $request, $shop_id) {
+        $user = Auth::user();
+
+        $review = Review::where('user_id', $user->id)
+                        ->where('shop_id', $shop_id)
+                        ->firstOrFail();
+
+        
+        if ($request->hasFile('image_url')) {
+            if ($review->image_url) {
+                Storage::disk('public')->delete('review_images/' . $review->image_url);
+            }
+            $image_url = $request->file('image_url')->store('review_images', 'public');
+            $review->image_url = basename($image_url);
+        }
+
+        $review->update([
+            'rating' => $request->input('rating'),
+            'comment' => $request->input('comment'),
+            'image_url' => $review->image_url, 
+        ]);
+
+        return redirect()->route('reviews.edit', ['shop_id' => $shop_id])->with('success', 'レビューが更新されました');
+    }
+
+    //レビュー削除
+    public function destroyReview($shop_id) {
+        $user = Auth::user();
+
+        $review = Review::where('user_id', $user->id)
+                        ->where('shop_id', $shop_id)
+                        ->firstOrFail();
+
+        if ($review->image_url) {
+            Storage::disk('public')->delete('review_images/' . $review->image_url);
+        }
+
+        $review->delete();
+
+        return redirect()->route('detail', ['shop_id' => $shop_id]);
     }
 
     //来店確認

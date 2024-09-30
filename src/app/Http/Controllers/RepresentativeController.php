@@ -51,8 +51,6 @@ class RepresentativeController extends Controller
         $user = Auth::user();
         $representatives = Representative::with('shop')->where('user_id', $user->id)->paginate(20);
 
-
-
         return view('representative.edit_shop_list', compact('user', 'representatives'));
     }
 

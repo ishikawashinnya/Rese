@@ -14,7 +14,6 @@ class MailController extends Controller
         return view('admin.email_notification');
     }
 
-
     public function sendNotification(Request $request){
         $destination = $request->input('destination');
         $message = $request->input('message');
