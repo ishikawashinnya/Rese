@@ -65,7 +65,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/review/{shop_id}', [ReseController::class, 'createReview'])->name('reviews.create');
     Route::post('/review/{shop_id}', [ReseController::class, 'storeReview'])->name('reviews.store');
-
+    Route::get('/review/{shop_id}/edit', [ReseController::class, 'editReview'])->name('reviews.edit');
+    Route::post('/review/{shop_id}/update', [ReseController::class, 'updateReview'])->name('reviews.update');
+    Route::delete('/review/{shop_id}', [ReseController::class, 'destroyReview'])->name('reviews.destroy');
+    
     Route::post('/charge', [PaymentController::class, 'charge'])->name('charge');
 });
 

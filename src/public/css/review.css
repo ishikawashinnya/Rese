@@ -202,6 +202,22 @@
     color: #DC143C;
 }
 
+.delete__btn {
+    width: 110px;
+    height: 30px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px gray;
+    text-align: center;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
 @media screen and (max-width: 768px) {
     
     .content__header {
@@ -257,5 +273,4 @@
         font-weight: bold;
         margin-left: 3%;
     }
-
 }

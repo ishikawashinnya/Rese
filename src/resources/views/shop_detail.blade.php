@@ -23,13 +23,15 @@
                     <a href="{{ route('reviews.list', ['shop_id' => $shop->id]) }}" class="review__link-button">レビュー一覧</a>
                 </div>
                 @if (Auth::check()) 
-                    
-                        
-                   
+                    @if ($posted)
+                        <div class="review__link">
+                            <a href="{{ route('reviews.edit', ['shop_id' => $shop->id]) }}" class="review__link-button">レビュー編集</a>
+                        </div>
+                    @elseif ($postReview)
                         <div class="review__link">
                             <a href="{{ route('reviews.create', ['shop_id' => $shop->id]) }}" class="review__link-button">レビュー投稿</a>
                         </div>
-                    
+                    @endif
                 @endif
             </div>
         </div>
