@@ -18,7 +18,7 @@
             <div class="shop__favorit">
                 @if (Auth::check())
                     @if (in_array($shop->id, $favorites))
-                        <form action="{{ route('favorites.destroy', $shop->id) }}" method="POST" class="shop__favorit-form">
+                        <form action="{{ route('favorite.destroy', $shop->id) }}" method="POST" class="shop__favorit-form">
                             <input type="hidden" name="shop_id" value="{{ $shop->id }}">
                             @csrf
                             @method('DELETE')
@@ -27,7 +27,7 @@
                             </button>
                         </form>
                     @else
-                        <form action="{{ route('favorites.create') }}" method="POST" class="shop__favorit-form">
+                        <form action="{{ route('favorite.create') }}" method="POST" class="shop__favorit-form">
                             @csrf
                             <input type="hidden" name="shop_id" value="{{ $shop->id }}">
                             <button type="submit" class="favorit__form-btn">
@@ -61,36 +61,38 @@
         </div>
 
         <div class="content__right">
-            <form action="{{ route('reviews.store', ['shop_id' => $shop->id]) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('review.update', $review->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="shop_id" value="{{ $review->shop_id }}">
+
                 <label class="rating__form-ttl">体験を評価してください</label>
                 <div class="rating__radio-form">
                     <div class="rating__radio">
-                        <input  id="rating1" type="radio" name="rating" value="1">
+                        <input  id="rating1" type="radio" name="rating" value="1" {{ old('rating', $review->rating) == 1 ? 'checked' : ''}}>
                         <label for="rating1">1.非常に不満</label>
                     </div>
                     <div class="rating__radio">
-                        <input id="rating2" type="radio" name="rating" value="2">
+                        <input id="rating2" type="radio" name="rating" value="2" {{ old('rating', $review->rating) == 2 ? 'checked' : ''}}>
                         <label for="rating2">2.不満</label>
                     </div>
                     <div class="rating__radio">
-                        <input id="rating3" type="radio" name="rating" value="3" checked>
+                        <input id="rating3" type="radio" name="rating" value="3" {{ old('rating', $review->rating) == 3 ? 'checked' : ''}}>
                         <label for="rating3">3.普通</label>
                     </div>
                     <div class="rating__radio">
-                        <input id="rating4" type="radio" name="rating" value="4">
+                        <input id="rating4" type="radio" name="rating" value="4" {{ old('rating', $review->rating) == 4 ? 'checked' : ''}}>
                         <label for="rating4">4.満足</label>
                     </div>
                     <div class="rating__radio">
-                        <input id="rating5" type="radio" name="rating" value="5">
+                        <input id="rating5" type="radio" name="rating" value="5" {{ old('rating', $review->rating) == 5 ? 'checked' : ''}}>
                         <label for="rating5">5.非常に満足</label>
                     </div>
                 </div>
 
                 <div class="comment">
                     <label for="comment"></label>
-                    <textarea name="comment" class="comment__area" rows="11" id="comment" placeholder="コメント" maxlength="400">{{ old('comment') }}</textarea>
-                    <div id="charCount" class="char-count">0/400(最高文字数)</div>
+                    <textarea name="comment" class="comment__area" rows="11" id="comment" placeholder="コメント" maxlength="400">{{ old('comment', $review->comment) }}</textarea>
+                    <div id="charCount" class="char-count">{{ strlen(old('comment', $review->comment)) }}/400(最高文字数)</div>
                 </div>
 
                 <div class="review__image">
@@ -99,13 +101,17 @@
                         <input type="file" name="image_url" accept="image/jpeg, image/png"  class="review__image-item">
                     </div>
                     <div class="image__preview">
-                        <img id ='imagePreview' src="#" alt="画像プレビュー">
+                        @if($review->image_url)
+                            <img id ='imagePreview' src="{{ asset('storage/review_images/' . $review->image_url) }}" alt="画像プレビュー">
+                        @else
+                            <img id ='imagePreview' src="#" alt="画像プレビュー">
+                        @endif
                     </div>
                 </div>
 
                 <div class="post__form">
                     <div class="review__btn">
-                        <button class="submit__btn" type="submit">投稿する</button>
+                        <button class="submit__btn" type="submit">更新する</button>
                     </div>
                     <div class="review__alert">
                         @if(session('success'))

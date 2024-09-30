@@ -22,10 +22,14 @@
                 <div class="review__link">
                     <a href="{{ route('reviews.list', ['shop_id' => $shop->id]) }}" class="review__link-button">レビュー一覧</a>
                 </div>
-                @if (Auth::check())
-                    <div class="review__link">
-                        <a href="{{ route('reviews.create', ['shop_id' => $shop->id]) }}" class="review__link-button">レビュー投稿</a>
-                    </div>  
+                @if (Auth::check()) 
+                    
+                        
+                   
+                        <div class="review__link">
+                            <a href="{{ route('reviews.create', ['shop_id' => $shop->id]) }}" class="review__link-button">レビュー投稿</a>
+                        </div>
+                    
                 @endif
             </div>
         </div>
@@ -59,7 +63,7 @@
                 <input type="hidden" name="shop_id" value="{{ $shop->id }}">
 
                 <div class="reservation__date">
-                    <input type="date" name="reservation_date" id="reservation_date" value="{{ old('reservation_date', '') }}" class="form__item" min="{{ $today }}">
+                    <input type="date" name="reservation_date" id="reservation_date" value="{{ old('reservation_date', '') }}" class="form__item" min="{{ $minDate }}">
                     <div class="error__item">
                         @error('reservation_date')
                             <span class="error__message">{{ $message }}</span>

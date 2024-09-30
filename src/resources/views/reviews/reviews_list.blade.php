@@ -9,7 +9,7 @@
     <div class="content__header">
         <div class="header__group">
             <div class="return__link">
-                <a href="/detail/{{ $shop->id }}" class="return__btn"><</a>
+                <a href="{{ route('detail', $shop->id) }}" class="return__btn"><</a>
             </div>
             <div class="header__ttl">
                 <h2>レビュー一覧</h2>

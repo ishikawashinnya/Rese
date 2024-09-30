@@ -39,7 +39,7 @@
                 <input type="hidden" name="shop_id" value="{{ $shop->id }}">
 
                 <div class="reservation__date">
-                    <input type="date" name="reservation_date" id="reservation_date" value="{{ old('reservation_date', $reservation->reservation_date) }}" class="form__item" min="{{ $today }}">
+                    <input type="date" name="reservation_date" id="reservation_date" value="{{ old('reservation_date', $reservation->reservation_date) }}" class="form__item" min="{{ $minDate }}">
                 </div>
 
                 <div class="reservation__time">
