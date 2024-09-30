@@ -63,9 +63,34 @@ class ReseController extends Controller
     public function detail($shop_id) {
         $shop = Shop::findOrFail($shop_id);
 
-        $today = now()->format('Y-m-d');
-    
-        return view('shop_detail', compact('shop', 'today'));
+        $today = new \DateTime();
+        $today->modify('+1 day');
+        $minDate = $today->format('Y-m-d');
+
+        $user = Auth::user();
+        $postReview = false;
+        $posted = false;
+        $review = null;
+
+        if($user) {
+            $reservation = Reservation::where('user_id', $user->id)
+                                      ->where('shop_id', $shop_id)
+                                      ->first();
+
+            if ($reservation && $reservation->status === '来店済み') {
+                $postReview = true;
+            }
+
+            $review = Review::where('user_id', $user->id)
+                            ->where('shop_id', $shop_id)
+                            ->first();
+
+            if ($review) {
+                $posted = true;
+            }
+        }
+
+        return view('shop_detail', compact('shop', 'minDate', 'postReview', 'posted', 'review'));
     }
 
     //マイページ
@@ -81,7 +106,10 @@ class ReseController extends Controller
 
             return view('representative.representative_mypage', compact('representative', 'shop'));
         } else {
-            $reservations = Reservation::where('user_id', $user->id)->with('shop')->orderBy('reservation_date')->get();
+            $reservations = Reservation::where('user_id', $user->id)
+                                       ->whereDate('reservation_date', '>=', Carbon::today())
+                                       ->with('shop')->orderBy('reservation_date')
+                                       ->get();
 
             foreach ($reservations as $reservation) {
                 $reservation->reservation_time = Carbon::parse($reservation->reservation_time)->format('H:i');
@@ -119,11 +147,14 @@ class ReseController extends Controller
     public function edit($id) {
         $reservation = Reservation::findOrFail($id);
         $shop = Shop::findOrFail($reservation->shop_id);
-        $today = now()->format('Y-m-d');
+        
+        $today = new \DateTime();
+        $today->modify('+1 day');
+        $minDate = $today->format('Y-m-d');
 
         $reservation->reservation_time = Carbon::parse($reservation->reservation_time)->format('H:i');
 
-        return view('reservation_edit', compact('reservation','shop', 'today'));
+        return view('reservation_edit', compact('reservation','shop', 'minDate'));
     }
 
     public function update(ReservationRequest $request, $id) {

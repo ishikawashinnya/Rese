@@ -9,7 +9,7 @@
     <!-- ログイン中のユーザー名表示 -->
     <div class="mypage__header">
         @if(Auth::check())
-            <p class="mypage__header-ttl">{{ \Auth::user()->name }}さん</p>
+            <p class="mypage__header-ttl">{{ \Auth::user()->name }}様</p>
         @endif
     </div>
 

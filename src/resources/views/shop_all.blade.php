@@ -61,7 +61,7 @@
 
             <div class="card__btn">
                 <div class="detail__link">
-                    <a href="/detail/{{ $shop->id }}" class="detail__link-btn">詳しくみる</a>
+                    <a href="{{ route('detail', $shop->id) }}" class="detail__link-btn">詳しくみる</a>
                 </div>
                 <div class="shop__favorit">
                     @if (Auth::check())
