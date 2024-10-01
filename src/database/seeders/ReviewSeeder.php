@@ -17,11 +17,11 @@ class ReviewSeeder extends Seeder
      */
     public function run()
     {
-        $users = User::all();
+        $users = User::whereBetween('id', [4, 18])->get();
         $shops = Shop::all();
 
         foreach ($shops as $shop) {
-            foreach (range(1,30) as $index) {
+            foreach (range(1,20) as $index) {
                 Review::factory()->create([
                     'user_id' => $users->random()->id,
                     'shop_id' => $shop->id,

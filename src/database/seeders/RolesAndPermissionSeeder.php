@@ -26,6 +26,5 @@ class RolesAndPermissionSeeder extends Seeder
 
         $representativeRole = Role::create(['name' => 'shop representative']);
         $representativeRole->givePermissionTo([$manageShopPermission, $viewReservationsPermission]);
-
     }
 }

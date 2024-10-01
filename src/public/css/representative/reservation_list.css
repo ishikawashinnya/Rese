@@ -80,7 +80,7 @@
     width: 100%;
     padding: 0 50px;
     line-height: 50px;
-    border-bottom: 3px double #464545;
+    border-bottom: 1px solid #464545;
     font-size: 20px;
     display: flex;
     justify-content: space-between;
@@ -103,6 +103,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 1px;
 }
 
 .value__list {

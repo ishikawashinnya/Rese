@@ -40,6 +40,5 @@ class AdminSeeder extends Seeder
             'password' => bcrypt('testuser'),
             'email_verified_at' => now(),
         ]);
-
     }
 }
