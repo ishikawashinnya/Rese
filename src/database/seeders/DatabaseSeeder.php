@@ -17,15 +17,15 @@ class DatabaseSeeder extends Seeder
         $this->call(GenresTableSeeder::class);
         $this->call(ShopsTableSeeder::class);
 
-        $this->call(RolesAndPermission::class);
-
-        $this->call(Admin::class);
+        $this->call(RolesAndPermissionSeeder::class);
+        $this->call(AdminSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(RepresentativeSeeder::class);
 
+        $this->call(FavoriteSeeder::class);
+        $this->call(ReservationSeeder::class);
         $this->call(ReviewSeeder::class);
         
-        
-
         // \App\Models\User::factory(10)->create();
     }
 }
