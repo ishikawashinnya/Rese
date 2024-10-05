@@ -94,5 +94,7 @@ Route::middleware(['auth', 'verified', 'role:shop representative'])->group(funct
 Route::get('/notification/create', [MailController::class, 'createNotification'])->name('notificatino.create');
 Route::post('/notification/send', [MailController::class, 'sendNotification'])->name('notification.send');
 Route::get('reservation/check/{id}', [ReseController::class, 'check'])->name('reservation.check');
+Route::get('/qr/{id}', [ReseController::class, 'showQr'])->name('qrcode.show');
+
 
 

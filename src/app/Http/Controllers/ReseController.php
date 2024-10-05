@@ -17,6 +17,7 @@ use Illuminate\Pagination\Paginator;
 use App\Http\Requests\ReservationRequest;
 use App\Http\Requests\ReviewRequest;
 use Carbon\Carbon;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 
 
@@ -314,5 +315,15 @@ class ReseController extends Controller
         $reservation->save();
 
         return view('representative.visit_check');
+    }
+
+    //QRコード表示ページ
+    public function showQr($id)
+    {
+        $reservation = Reservation::findOrFail($id);
+        $url = route('reservation.check', ['id' => $id]);
+        $qrCode = QrCode::format('png')->size(200)->generate($url);
+
+        return view('qrcode', ['qrCode' => 'data:image/png;base64,' . base64_encode($qrCode)]);
     }
 }
