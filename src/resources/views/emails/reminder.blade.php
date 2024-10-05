@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,7 +25,11 @@
         <p>ご予約人数: {{$reservation->reservation_num }}名様</p>
         
         <p>ご来店いただいた際に、下記QRコードをスキャンしてお手続きをいたしますので、ご提示をお願いいたします。</p>
-        {!! $qrCode !!}
+        
+        <img src="{{ $qrCode }}" alt="QR Code">
+
+        <p>QRコードが表示されない場合はこちら:</p>
+        <p><a href="{{ route('qrcode.show', ['id' => $reservation->id]) }}">QRコードページに移動</a></p>
 
         <p>ご来店心よりお待ちしております。</p>
     </main>  
