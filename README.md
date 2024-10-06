@@ -28,10 +28,10 @@ http://ec2-54-65-12-180.ap-northeast-1.compute.amazonaws.com/
 Laravel Framework 8.x、PHP7.4.9、MySQL8.0.26、JavaScript、stripe
 
 ## テーブル設計
-![tabledesign](https://github.com/user-attachments/assets/28818213-4a7c-48e5-b892-30524a72ba0b)
+![table_design](https://github.com/user-attachments/assets/3e5a35e0-bca8-4748-9a6a-c9718991b1c4)
 
 ## ER図
-![tableER drawio](https://github.com/user-attachments/assets/e9079106-d414-486f-802e-4b50af12247d)
+![table_ER drawio](https://github.com/user-attachments/assets/9f30999d-b0c1-4ed0-8e32-0621c4f8da30)
 
 ## 環境構築
 ### Dockerビルド
