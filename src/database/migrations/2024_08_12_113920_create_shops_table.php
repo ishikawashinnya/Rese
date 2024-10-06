@@ -19,8 +19,8 @@ class CreateshopsTable extends Migration
             $table->foreignId('genre_id')->constrained()->cascadeOnDelete();
             $table->foreignId('area_id')->constrained()->cascadeOnDelete();
             $table->string('address');
-            $table->string('description', 150)->nullable();
-            $table->string('image_url')->nullable();
+            $table->string('description', 150);
+            $table->string('image_url');
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ class CreateshopsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('restaurants');
+        Schema::dropIfExists('shops');
     }
 }
