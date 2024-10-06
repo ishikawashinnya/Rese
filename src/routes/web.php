@@ -76,7 +76,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/create', [AdminController::class, 'create'])->name('admin.create');
     Route::post('/admin/store', [AdminController::class, 'store'])->name('admin.store');
-   
+    Route::get('/userlist', [AdminController::class, 'getUsers'])->name('userlist');
 });
 
 //Representative Routes
@@ -91,10 +91,8 @@ Route::middleware(['auth', 'verified', 'role:shop representative'])->group(funct
     Route::get('/scan', [RepresentativeController::class, 'scan'])->name('qr.scan');
 });
 
+//Others Route
 Route::get('/notification/create', [MailController::class, 'createNotification'])->name('notificatino.create');
 Route::post('/notification/send', [MailController::class, 'sendNotification'])->name('notification.send');
 Route::get('reservation/check/{id}', [ReseController::class, 'check'])->name('reservation.check');
 Route::get('/qr/{id}', [ReseController::class, 'showQr'])->name('qrcode.show');
-
-
-

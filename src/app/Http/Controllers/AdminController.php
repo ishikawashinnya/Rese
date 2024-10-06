@@ -25,4 +25,11 @@ class AdminController extends Controller
 
         return redirect()->route('admin.create')->with('success', '代表者が作成されました');
     }
+
+    public function getUsers()
+    {
+        $users = User::paginate(10);
+
+        return view('admin.user_list', compact('users'));
+    }
 }
