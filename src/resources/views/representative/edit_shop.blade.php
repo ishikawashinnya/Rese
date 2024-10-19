@@ -131,7 +131,10 @@
                 <div class="card__ttl"><h3>店舗一覧</h3></div>
                 <div class="card">
                     <div class="image__preview">
+                        <!-- ローカル -->
                         <img id ='card__image' src="{{ old('image_url', $shop->image_url ? asset('storage/shop_images/' . $shop->image_url) : '#') }}" alt="画像プレビュー">
+                        <!-- s3 -->
+                        <!-- <img id ='card__image' src="{{ $shop->image_url ? $shop->image_url : '#' }}" alt="画像プレビュー"> -->
                     </div>
                     <div class="card__item">
                         <div class="shop__name">
@@ -162,7 +165,10 @@
                         </div>
                     </div>
                     <div class="detail__img">
+                        <!-- ローカル -->
                         <img id='detail__image' src="{{ old('image_url', $shop->image_url ? asset('storage/shop_images/' . $shop->image_url) : '#') }}" alt="画像プレビュー">
+                        <!-- s3 -->
+                        <!-- <img id='detail__image' src="{{ $shop->image_url ? $shop->image_url : '#' }}" alt="画像プレビュー"> -->
                     </div>
                     <div class="shop__information">
                         <p id="detail__area">#{{ old('area_id', $shop->area->name) }}</p>

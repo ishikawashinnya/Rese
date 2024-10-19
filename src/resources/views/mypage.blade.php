@@ -50,7 +50,7 @@
                             <form action="{{ route('reservation.edit', ['id' => $reservation->id]) }}" method='get' class="reservation__form">
                                 @csrf
                                 <div class="header__right-img">
-                                    <button type="submit" class="reservation__form-btn">
+                                    <button type="submit" class="reservation__form-btn" onclick="return confirm('予約を変更しますか？')">
                                         <img src="{{ asset('icon/pencil.svg') }}" alt="予約変更">
                                     </button>
                                 </div>
@@ -61,7 +61,7 @@
                                 @method('DELETE')
                                 <input type="hidden" name="id" value="{{ $reservation->id }}">
                                 <div class="header__right-img">
-                                    <button type="submit" class="reservation__form-btn">
+                                    <button type="submit" class="reservation__form-btn" onclick="return confirm('予約を削除しますか？')">
                                         <img src="{{ asset('icon/batsu.svg') }}" alt="予約取消">
                                     </button>
                                 </div>

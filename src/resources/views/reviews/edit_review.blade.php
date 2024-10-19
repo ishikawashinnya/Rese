@@ -18,7 +18,7 @@
             <form action="{{ route('reviews.destroy', ['shop_id' => $shop->id]) }}" method="POST" class="delete__form">
                 @csrf
                 @method('DELETE')
-                <button class="delete__btn" type="submit">削除する</button>
+                <button class="delete__btn" type="submit" onclick="return confirm('レビューを削除しますか？')">削除する</button>
             </form>
         </div>
     </div>
@@ -29,7 +29,10 @@
                 @if (filter_var($shop->image_url, FILTER_VALIDATE_URL))
                     <img src="{{ $shop->image_url }}" alt="{{ $shop->name }}">
                 @else
+                    <!-- ローカル -->
                     <img src="{{ asset('storage/shop_images/' . $shop->image_url) }}" alt="{{ $shop->name }}">
+                    <!-- s3 -->
+                    <!-- <img src="{{ Storage::url('shop_images/' . $shop->image_url) }}" alt="{{ $shop->name }}"> -->
                 @endif
             </div>
         
@@ -85,7 +88,10 @@
                     </div>
                     <div class="image__preview">
                         @if($review->image_url)
+                            <!-- ローカル -->
                             <img id ='imagePreview' src="{{ asset('storage/review_images/' . $review->image_url) }}" alt="画像プレビュー">
+                            <!-- s3 -->
+                            <!-- <img id ='imagePreview' src="{{ Storage::url($review->image_url) }}" alt="画像プレビュー"> -->
                         @else
                             <img id ='imagePreview' src="#" alt="画像プレビュー">
                         @endif
