@@ -46,7 +46,10 @@
                 @if (filter_var($shop->image_url, FILTER_VALIDATE_URL))
                     <img src="{{ $shop->image_url }}" alt="{{ $shop->name }}">
                 @else
+                    <!-- ローカル -->
                     <img src="{{ asset('storage/shop_images/' . $shop->image_url) }}" alt="{{ $shop->name }}">
+                    <!-- s3 -->
+                    <!-- <img src="{{ Storage::url('shop_images/' . $shop->image_url) }}" alt="{{ $shop->name }}"> -->
                 @endif
             </div>
         

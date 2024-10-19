@@ -237,17 +237,28 @@ class ReseController extends Controller
             return redirect()->route('reviews.create', ['shop_id' => $shop_id])->with('error', '既にレビューを投稿されてます');
         }
 
+        //ローカル
         $image_url = null;
         if ($request->hasFile('image_url')) {
             $image_url = $request->file('image_url')->store('review_images', 'public');
         }
+
+        //s3
+        //$image_url = null;
+        //if ($request->hasFile('image_url')) {
+            //$image_url = $request->file('image_url')->store('review_images', 's3', ['ACL' => 'public-read',]);
+        //}
 
         Review::create([
             'user_id' => $user->id,
             'shop_id' => $shop_id,
             'rating' => $request->input('rating'),
             'comment' => $request->input('comment'),
+            //ローカル
             'image_url' => basename($image_url),
+
+            //s3
+            //'image_url' => $image_url ? Storage::disk('s3')->url($image_url) : null,
         ]);
 
         return redirect()->route('reviews.create', ['shop_id' => $shop_id])->with('success', 'レビューが投稿されました');
@@ -273,7 +284,7 @@ class ReseController extends Controller
                         ->where('shop_id', $shop_id)
                         ->firstOrFail();
 
-        
+        //ローカル
         if ($request->hasFile('image_url')) {
             if ($review->image_url) {
                 Storage::disk('public')->delete('review_images/' . $review->image_url);
@@ -281,6 +292,12 @@ class ReseController extends Controller
             $image_url = $request->file('image_url')->store('review_images', 'public');
             $review->image_url = basename($image_url);
         }
+
+        //s3
+        //if ($request->hasFile('image_url')) {
+                //$image_url = $request->file('image_url')->store('review_images', 's3');
+                //$review->image_url = Storage::disk('s3')->url($image_url);
+        //}
 
         $review->update([
             'rating' => $request->input('rating'),

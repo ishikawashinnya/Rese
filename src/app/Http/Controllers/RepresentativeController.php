@@ -32,10 +32,17 @@ class RepresentativeController extends Controller
         $shop->address = $request->input('address');
         $shop->description = $request->input('description');
 
+        //ローカル
         if ($request->hasFile('image_url')) {
             $image_url = $request->file('image_url')->store('shop_images', 'public');
             $shop->image_url = str_replace('shop_images/', '', $image_url); 
         }
+
+        //storageをs3にした場合
+        //if ($request->hasFile('image_url')) {
+            //$image_url = $request->file('image_url')->store('shop_images', 's3');
+            //$shop->image_url = Storage::disk('s3')->url($image_url);
+        //}
 
         $shop->save();
 
@@ -74,6 +81,7 @@ class RepresentativeController extends Controller
         $shop->address = $request->input('address');
         $shop->description = $request->input('description');
 
+        //ローカル
         if($request->hasFile('image_url')) {
             if ($shop->image_url) {
                 Storage::delete('public/shop_images/' . $shop->image_url);
@@ -84,6 +92,14 @@ class RepresentativeController extends Controller
             $path = $file->storeAs('public/shop_images', $filename);
             $shop->image_url = $filename;
         }
+
+        //s3
+        //if($request->hasFile('image_url')) {
+            //$file = $request->file('image_url');
+            //$filename = time() . '.' . $file->getClientOriginalExtension();
+            //$path = $file->storeAs('shop_images', $filename, 's3');
+            //$shop->image_url = Storage::disk('s3')->url($path);
+        //}
 
         $shop->save();
 

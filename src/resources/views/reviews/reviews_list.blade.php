@@ -52,7 +52,10 @@
                             <div class="modal-wrapper">
                                 <label for="modalToggle" class="close">&times;</label>
                                 <div class="modal-content">
+                                    <!-- ローカル -->
                                     <img src="{{ asset('storage/review_images/' . $review->image_url) }}" alt="投稿画像" class="review__image">
+                                    <!-- s3 -->
+                                    <!-- <img src="{{ $review->image_url }}" alt="投稿画像" class="review__image"> -->
                                 </div>
                             </div>
                         </div>
