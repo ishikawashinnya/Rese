@@ -10,7 +10,7 @@
 Laravel学習のまとめとして作成しました。
 
 ## アプリケーションURL  
-http://ec2-54-65-12-180.ap-northeast-1.compute.amazonaws.com/   (現在停止中)
+http://ec2-54-65-12-180.ap-northeast-1.compute.amazonaws.com/   (現在停止中)  
 ※テストデプロイのため保護されていない通信です。QRコード読み取りページのカメラへのアクセスは、お使いのブラウザでの設定が必要になる場合があります。  
 例：GoogleChromの場合  
 1.Chromeのアドレスバーに chrome://flags/#unsafely-treat-insecure-origin-as-secure と入力。  
