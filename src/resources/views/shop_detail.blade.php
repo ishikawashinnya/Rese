@@ -7,50 +7,76 @@
 @section('content')
 <div class="shop_detail-content">
     <div class="content__left">
-        <div class="left__header">
+        <div class="left__header" @if($posted) style="display:none;" @endif>
             <div class="content__left-ttl">
                 <div class="return__link">
                     @if(request()->query('from_mypage'))
-                        <a href="{{ route('mypage') }}" class="return__btn"><</a>
-                    @else 
-                        <a href="/" class="return__btn"><</a>
+                    <a href="{{ route('mypage') }}" class="return__btn">＜</a>
+                    @else
+                    <a href="/" class="return__btn">＜</a>
                     @endif
                 </div>
                 <p class="shop__name">{{ $shop->name }}</p>
             </div>
-            <div class="review__buttons">
-                <div class="review__link">
-                    <a href="{{ route('reviews.list', ['shop_id' => $shop->id]) }}" class="review__link-button">レビュー一覧</a>
-                </div>
-                @if (Auth::check()) 
-                    @if ($posted)
-                        <div class="review__link">
-                            <a href="{{ route('reviews.edit', ['shop_id' => $shop->id]) }}" class="review__link-button">レビュー編集</a>
-                        </div>
-                    @elseif ($postReview)
-                        <div class="review__link">
-                            <a href="{{ route('reviews.create', ['shop_id' => $shop->id]) }}" class="review__link-button">レビュー投稿</a>
-                        </div>
-                    @endif
-                @endif
-            </div>
         </div>
-        
-        <div class="content__img">
+
+        <div class="content__img {{ $review ? 'small' : '' }}">
             @if (filter_var($shop->image_url, FILTER_VALIDATE_URL))
-                <img src="{{ $shop->image_url }}" alt="{{ $shop->name }}">
+            <img src="{{ $shop->image_url }}" alt="{{ $shop->name }}">
             @else
-                <img src="{{ asset('storage/shop_images/' . $shop->image_url) }}" alt="{{ $shop->name }}">
+            <img src="{{ asset('storage/shop_images/' . $shop->image_url) }}" alt="{{ $shop->name }}">
             @endif
         </div>
-        
+
         <div class="shop__information">
             <p>#{{ $shop->area->name }}</p>
             <p>#{{ $shop->genre->name }}</p>
         </div>
 
-        <div class="shop__description">
+        <div class="shop__description {{ $review ? 'small' : '' }}">
             <p>{{ $shop->description }}</p>
+        </div>
+
+        <div class="review">
+            @if (Auth::check())
+            <!-- レビュー未投稿の場合 -->
+            @if ($postReview && !$posted)
+            <div class="review__create-link">
+                <a href="{{ route('reviews.create', ['shop_id' => $shop->id]) }}" class="create__link-button">口コミを投稿する
+            </div>
+            @endif
+            @endif
+
+            <div class="review__all-link">
+                <a href="{{ route('reviews.list', ['shop_id' => $shop->id]) }}" class="review__all-button">全ての口コミ情報</a>
+            </div>
+
+            @if (Auth::check())
+            @if ($posted)
+            <div class="my__review">
+                <div class="review__edit-link">
+                    <a href="{{ route('reviews.edit', ['shop_id' => $shop->id]) }}" class="edit__link-button">口コミを編集</a>
+                    <form action="{{ route('reviews.destroy', ['shop_id' => $shop->id]) }}" method="POST" class="delete__form">
+                        @csrf
+                        @method('DELETE')
+                        <button class="delete__btn" type="submit" onclick="return confirm('レビューを削除しますか？')">口コミを削除</button>
+                    </form>
+                </div>
+
+                <div class="user__rating">
+                    <p class="star5__rating" data-rate="{{ number_format($review->rating, 1) }}"></p>
+                </div>
+                <div class="user__comment">
+                    <p>{{ $review->comment }}</p>
+                </div>
+                @if ($review->image_url)
+                <div class="user__review-img">
+                    <img src="{{ asset('storage/review_images/' . $review->image_url) }}" alt="投稿画像" class="review__image">
+                </div>
+                @endif
+            </div>
+            @endif
+            @endif
         </div>
     </div>
 
@@ -59,7 +85,7 @@
             <div class="form__ttl">
                 <p>予約</p>
             </div>
-            
+
             <form action="{{ route('reservation.store') }}" method="POST" class="reservation__form-item">
                 @csrf
                 <input type="hidden" name="shop_id" value="{{ $shop->id }}">
@@ -68,7 +94,7 @@
                     <input type="date" name="reservation_date" id="reservation_date" value="{{ old('reservation_date', '') }}" class="form__item" min="{{ $minDate }}">
                     <div class="error__item">
                         @error('reservation_date')
-                            <span class="error__message">{{ $message }}</span>
+                        <span class="error__message">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
@@ -85,13 +111,13 @@
                     </select>
                     <div class="error__item">
                         @error('reservation_time')
-                            <span class="error__message">{{ $message }}</span>
+                        <span class="error__message">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
 
                 <div class="reservation__num">
-                    <select name="reservation_num" id="reservation_num" class="form__item" >
+                    <select name="reservation_num" id="reservation_num" class="form__item">
                         <option value="" disabled {{ old('reservation_num') ? '' : 'selected' }}>-- 人数を選択 --</option>
                         <option value="1" {{ old('reservation_num') == '1' ? 'selected' : '' }}>1人</option>
                         <option value="2" {{ old('reservation_num') == '2' ? 'selected' : '' }}>2人</option>
@@ -101,7 +127,7 @@
                     </select>
                     <div class="error__item">
                         @error('reservation_num')
-                            <span class="error__message">{{ $message }}</span>
+                        <span class="error__message">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
@@ -129,7 +155,7 @@
 
                 <div class="reservation__form-btn">
                     <button class="reservation__btn" type="submit">予約する</button>
-                </div>  
+                </div>
             </form>
         </div>
     </div>

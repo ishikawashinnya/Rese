@@ -33,7 +33,7 @@ class ReviewRequest extends FormRequest
     public function messages()
     {
         return [
-            'rating.requered' => '評価数を選択してください',
+            'rating.required' => '評価数を選択してください',
             'comment.max' => '400文字以内で記入してください',
             'image_url.file' => '有効なファイルをアップロードしてください',
             'image_url.mimes' => 'ファイル形式はjpeg,pngのみ有効です'
