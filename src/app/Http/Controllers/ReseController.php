@@ -43,6 +43,23 @@ class ReseController extends Controller
             $query->where('name', 'like', '%' . $request->input('word') . '%');
         }
 
+        // レビューの平均評価を取得
+        $query->withAvg('reviews','rating');
+
+        if ($request->filled('sort')) {
+            switch ($request->input('sort')) {
+                case 'high_rating':
+                    $query->orderByRaw('reviews_avg_rating IS NOT NULL DESC')->orderByDesc('reviews_avg_rating');
+                    break;
+                case 'low_rating':
+                    $query->orderByRaw('reviews_avg_rating IS NOT NULL DESC')->orderBy('reviews_avg_rating');
+                    break;
+                case 'random':
+                    $query->inRandomOrder();
+                    break;
+            }
+        }
+
         // データ取得
         // リレーションを使って関連データも取得する
         $shops = $query->with('area', 'genre')->get();
