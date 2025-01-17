@@ -25,7 +25,7 @@ class ReviewRequest extends FormRequest
     {
         return [
             'rating' => 'required',
-            'comment' => 'max:400',
+            'comment' => ['required', 'max:400'],
             'image_url' => ['file', 'mimes:jpeg,png']
         ];
     }
@@ -34,6 +34,7 @@ class ReviewRequest extends FormRequest
     {
         return [
             'rating.required' => '評価数を選択してください',
+            'comment.required' => 'コメントを入力してください',
             'comment.max' => '400文字以内で記入してください',
             'image_url.file' => '有効なファイルをアップロードしてください',
             'image_url.mimes' => 'ファイル形式はjpeg,pngのみ有効です'

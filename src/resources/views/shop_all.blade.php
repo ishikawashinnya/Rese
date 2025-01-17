@@ -103,9 +103,22 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const sortSelect = document.getElementById("sortSelect");
+        const form = document.getElementById("searchForm");
 
         sortSelect.addEventListener("change", function() {
-            document.getElementById("searchForm").submit();
+            const selectedValue = this.value;
+
+            if (selectedValue === 'random') {
+                form.submit();
+            } else {
+                form.submit();
+            }
+        });
+
+        sortSelect.addEventListener("click", function() {
+            if (this.value === 'random') {
+                this.value = ''; 
+            }
         });
     });
 </script>

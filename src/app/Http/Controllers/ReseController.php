@@ -281,7 +281,7 @@ class ReseController extends Controller
         return redirect()->route('reviews.create', ['shop_id' => $shop_id])->with('success', 'レビューが投稿されました');
     }
 
-    //レビュー更新
+    //レビュー更新ページ
     public function editReview($shop_id) {
         $shop = Shop::findOrFail($shop_id);
         $user = Auth::user();
@@ -294,6 +294,7 @@ class ReseController extends Controller
         return view('reviews.edit_review', compact('shop', 'review', 'favorites'));
     }
 
+    //レビュー更新機能
     public function updateReview(ReviewRequest $request, $shop_id) {
         $user = Auth::user();
 
