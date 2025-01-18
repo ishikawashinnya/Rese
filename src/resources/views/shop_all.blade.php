@@ -61,7 +61,7 @@
 
         <div class="card__item">
             <div class="shop__name">
-                <p>{{ $shop->name }}</p>
+                <p class="name">{{ $shop->name }}</p>
                 <p class="rating">評価: {{ $shop->reviews_avg_rating ? number_format($shop->reviews_avg_rating, 1) : '未評価' }}</p>
             </div>
             <div class="text__box">
@@ -117,7 +117,7 @@
 
         sortSelect.addEventListener("click", function() {
             if (this.value === 'random') {
-                this.value = ''; 
+                this.value = '';
             }
         });
     });

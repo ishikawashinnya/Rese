@@ -76,11 +76,11 @@
                 <div class="description__label">
                     <label for="description" class="form__label">店舗説明</label>
                     <div id="charCount" class="char-count">
-                        {{ strlen(old('description', $shop->description)) }}/150(文字数)
+                        {{ strlen(old('description', $shop->description)) }}/400(文字数)
                     </div>
                 </div>
                 <div>
-                    <textarea name="description" id="description" rows="8" maxlength="150" class="description_text">{{ old('description', $shop->description) }}</textarea>
+                    <textarea name="description" id="description" rows="8" maxlength="400" class="description_text">{{ old('description', $shop->description) }}</textarea>
                     
                     <div class="error__item">
                         @error('description')

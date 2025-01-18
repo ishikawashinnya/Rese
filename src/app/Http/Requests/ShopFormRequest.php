@@ -27,7 +27,7 @@ class ShopFormRequest extends FormRequest
             'name' => ['required', 'string'],
             'area_id' => 'required',
             'genre_id' => 'required',
-            'description' => ['required', 'string', 'max:150'],
+            'description' => ['required', 'string', 'max:400'],
             'address' => ['required', 'string'],
             'image_url' => ['required', 'file', 'mimes:jpeg,png']
         ];
@@ -42,7 +42,7 @@ class ShopFormRequest extends FormRequest
             'genre_id.required' => 'ジャンルを選択してください',
             'description.required' => '店舗説明文を入力してください',
             'description.string' => '店舗説明文を文字列で入力してください',
-            'description.max' => '店舗説明文を150文字以下で入力してください',
+            'description.max' => '店舗説明文を400文字以下で入力してください',
             'address.required' => '住所を入力してください',
             'address.string' => '住所を文字列で入力してください',
             'image_url.required' => '画像ファイルを選択してください',
