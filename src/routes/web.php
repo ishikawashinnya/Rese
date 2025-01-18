@@ -77,6 +77,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/create', [AdminController::class, 'create'])->name('admin.create');
     Route::post('/admin/store', [AdminController::class, 'store'])->name('admin.store');
     Route::get('/userlist', [AdminController::class, 'getUsers'])->name('userlist');
+    Route::get('/importpage', [AdminController::class, 'importPage'])->name('importpage');
+    Route::post('/csv/upload', [AdminController::class, 'importCsv'])->name('csv.import');
+    Route::get('/download/csvtemplate', [AdminController::class, 'downloadCsv'])->name('csv.download');
 });
 
 //Representative Routes

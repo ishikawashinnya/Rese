@@ -186,9 +186,20 @@
     align-items: center;
 }
 
+.name {
+    width: 60%;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .rating {
+    width: 30%;
     margin-right: 5%;
-    font-size: clamp(10px, 1vw, 14px);
+    font-size: clamp(8px, 1vw, 14px);
 }
 
 .text__box {

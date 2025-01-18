@@ -18,16 +18,22 @@
         </div>
 
         <div class="admin__link">
+            <a href="{{ route('importpage') }}" class="admin__link-item">
+                <p>新規店舗追加(csv)</p>
+            </a>
+        </div>
+
+        <div class="admin__link">
             <a href="{{ route('userlist') }}" class="admin__link-item">
                 <p>ユーザー一覧</p>
             </a>
-        </div> 
-        
+        </div>
+
         <div class="admin__link">
             <a href="{{ route('notificatino.create') }}" class="admin__link-item">
                 <p>メールフォーム</p>
             </a>
-        </div>                 
+        </div>
     </div>
 </div>
 @endsection
