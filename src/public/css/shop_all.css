@@ -286,7 +286,13 @@
 
     .card:nth-child(3n+1) {
         margin-left: 1%;
-    }  
+    }
+
+    .rating {
+        width: 30%;
+        margin-right: 5%;
+        font-size: clamp(7px, 1.5vw, 12px);
+    }
 
     .detail__link {
         width: 40%;

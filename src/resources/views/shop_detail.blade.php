@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="shop_detail-content">
+<div class="shop__detail-content">
     <div class="content__left">
         <div class="left__header" @if($posted) style="display:none;" @endif>
             <div class="content__left-ttl">
@@ -67,7 +67,7 @@
                     <p class="star5__rating" data-rate="{{ number_format($review->rating, 1) }}"></p>
                 </div>
                 <div class="user__comment">
-                    <p>{{ $review->comment }}</p>
+                    <p>{!! nl2br(e($review->comment)) !!}</p>
                 </div>
                 @if ($review->image_url)
                 <div class="user__review-img">
@@ -77,6 +77,13 @@
             </div>
             @endif
             @endif
+            <div class="alert">
+                @if(session('success'))
+                <div class="alert__success">
+                    <p class="alert__message">{{ session('success')}}</p>
+                </div>
+                @endif
+            </div>
         </div>
     </div>
 

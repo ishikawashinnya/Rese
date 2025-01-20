@@ -7,18 +7,15 @@ use App\Models\Genre;
 use App\Models\Favorite;
 use App\Models\Reservation;
 use App\Models\Shop;
-use App\Models\User;
 use App\Models\Review;
 use App\Models\Representative;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Pagination\Paginator;
 use App\Http\Requests\ReservationRequest;
 use App\Http\Requests\ReviewRequest;
 use Carbon\Carbon;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
-
 
 
 class ReseController extends Controller
@@ -263,7 +260,7 @@ class ReseController extends Controller
         //s3
         //$image_url = null;
         //if ($request->hasFile('image_url')) {
-            //$image_url = $request->file('image_url')->store('review_images', 's3', ['ACL' => 'public-read',]);
+        //$image_url = $request->file('image_url')->store('review_images', 's3', ['ACL' => 'public-read',]);
         //}
 
         Review::create([
@@ -278,7 +275,7 @@ class ReseController extends Controller
             //'image_url' => $image_url ? Storage::disk('s3')->url($image_url) : null,
         ]);
 
-        return redirect()->route('reviews.create', ['shop_id' => $shop_id])->with('success', 'レビューが投稿されました');
+        return redirect()->route('detail', ['shop_id' => $shop_id])->with('success', 'レビューが投稿されました');
     }
 
     //レビュー更新ページ
@@ -323,7 +320,7 @@ class ReseController extends Controller
             'image_url' => $review->image_url, 
         ]);
 
-        return redirect()->route('reviews.edit', ['shop_id' => $shop_id])->with('success', 'レビューが更新されました');
+        return redirect()->route('detail', ['shop_id' => $shop_id])->with('success', 'レビューが更新されました');
     }
 
     //レビュー削除
@@ -340,7 +337,7 @@ class ReseController extends Controller
 
         $review->delete();
 
-        return redirect()->route('detail', ['shop_id' => $shop_id]);
+        return redirect()->route('detail', ['shop_id' => $shop_id])->with('success', 'レビューが削除されました');
     }
 
     //来店確認

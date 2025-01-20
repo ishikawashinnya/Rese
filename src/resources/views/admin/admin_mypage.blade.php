@@ -24,6 +24,12 @@
         </div>
 
         <div class="admin__link">
+            <a href="{{ route('shoplist') }}" class="admin__link-item">
+                <p>店舗一覧</p>
+            </a>
+        </div>
+
+        <div class="admin__link">
             <a href="{{ route('userlist') }}" class="admin__link-item">
                 <p>ユーザー一覧</p>
             </a>

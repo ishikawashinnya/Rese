@@ -65,19 +65,19 @@
                 @csrf
                 <label class="rating__form-ttl">体験を評価してください</label>
                 <div class="rating__radio-form">
-                    <input id="rating5" type="radio" name="rating" value="5" class="rating__input">
+                    <input id="rating5" type="radio" name="rating" value="5" class="rating__input" {{ old('rating') == 5 ? 'checked' : '' }}>
                     <label for="rating5" class="rating__star">&#9733;</label>
 
-                    <input id="rating4" type="radio" name="rating" value="4" class="rating__input">
+                    <input id="rating4" type="radio" name="rating" value="4" class="rating__input" {{ old('rating') == 4 ? 'checked' : '' }}>
                     <label for="rating4" class="rating__star">&#9733;</label>
 
-                    <input id="rating3" type="radio" name="rating" value="3" class="rating__input">
+                    <input id="rating3" type="radio" name="rating" value="3" class="rating__input" {{ old('rating') == 3 ? 'checked' : '' }}>
                     <label for="rating3" class="rating__star">&#9733;</label>
 
-                    <input id="rating2" type="radio" name="rating" value="2" class="rating__input">
+                    <input id="rating2" type="radio" name="rating" value="2" class="rating__input" {{ old('rating') == 2 ? 'checked' : '' }}>
                     <label for="rating2" class="rating__star">&#9733;</label>
 
-                    <input id="rating1" type="radio" name="rating" value="1" class="rating__input">
+                    <input id="rating1" type="radio" name="rating" value="1" class="rating__input" {{ old('rating') == 1 ? 'checked' : '' }}>
                     <label for="rating1" class="rating__star">&#9733;</label>
                 </div>
                 <div class="alert__danger">
@@ -89,7 +89,7 @@
                 <div class="comment">
                     <label for="comment" class="comment__ttl">口コミを投稿</label>
                     <textarea name="comment" class="comment__area" rows="11" id="comment" placeholder="カジュアルな夜のお出かけにおすすめのスポット" maxlength="400">{{ old('comment') }}</textarea>
-                    <div id="charCount" class="char-count">0/400(最高文字数)</div>
+                    <div id="charCount" class="char__count">0/400(最高文字数)</div>
                 </div>
                 <div class="alert__danger">
                     @error('comment')
@@ -99,15 +99,15 @@
 
                 <div class="review__image">
                     <label class="review__image-ttl">画像の追加</label>
-                    <div class="image__preview">
-                        <img id='imagePreview' src="" alt="" class="image__preview-field">
-                    </div>
-                    <div class="image__select">
-                        <label for="image" class="image__select-label">
-                            クリックして写真を追加</br>
-                            <span class="sub__label">またはドラッグアンドドロップ</span>
-                        </label>
-                        <input type="file" name="image_url" accept="image/jpeg, image/png" class="review__image-item" id="image" style="display: none;">
+                    <div class="image__preview" id="imagePreviewContainer">
+                        <img id='imagePreview' src="" alt="プレビュー画像" class="image__preview-field" style="display: none;">
+                        <div class="image__select">
+                            <label for="image" class="image__select-label">
+                                クリックして写真を追加</br>
+                                <span class="sub__label">またはドラッグアンドドロップ</span>
+                            </label>
+                            <input type="file" name="image_url" accept="image/jpeg, image/png" class="review__image-item" id="image" style="display: none;">
+                        </div>
                     </div>
                 </div>
                 <div class="alert__danger">
@@ -143,7 +143,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         const textarea = document.getElementById('comment');
         const charCount = document.getElementById('charCount');
-        const maxLength = textarea.maxLength;
+        const maxLength = 400;
 
         function updateCharCount() {
             const currentLength = textarea.value.length;
@@ -155,56 +155,54 @@
 
         const imageInput = document.querySelector('.review__image-item');
         const imagePreview = document.getElementById('imagePreview');
-        const imageSelectLabel = document.querySelector('.image__select-label');
         const imagePreviewContainer = document.getElementById('imagePreviewContainer');
         const imageSelect = document.querySelector('.image__select');
 
+        function updateImagePreview(file) {
+            if (!file || !file.type.startsWith('image/')) {
+                alert('画像ファイルのみアップロードできます');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+                imagePreviewContainer.style.backgroundColor = 'transparent';
+                imageSelect.style.display = 'none';
+
+                const imageInput = document.querySelector('.review__image-item');
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                imageInput.files = dataTransfer.files;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // ファイル選択時の処理
         imageInput.addEventListener('change', function(event) {
             const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    imagePreview.src = e.target.result;
-                    imagePreview.style.display = 'block';
-                    imagePreviewContainer.style.backgroundColor = 'transparent';
-                    imageSelect.style.display = 'none';
-                };
-                reader.readAsDataURL(file);
-            } else {
-                imagePreview.src = '';
-                imagePreview.style.display = 'none';
-                imagePreviewContainer.style.backgroundColor = '#f1f1f1';
-                imageSelect.style.display = 'block';
-            }
+            updateImagePreview(file);
         });
 
-        // ドラッグオーバー (ドラッグ中の処理)
+        // ドラッグオーバー処理
         imagePreviewContainer.addEventListener('dragover', function(event) {
-            event.preventDefault(); // ドラッグ中でもファイルがドロップできるようにする
-            imagePreviewContainer.classList.add('dragover'); // CSSクラスでスタイル変更
+            event.preventDefault();
+            imagePreviewContainer.classList.add('dragover');
         });
 
-        // ドラッグが離れた時 (ドラッグを離した時に呼ばれる)
+        // ドラッグリーブ処理
         imagePreviewContainer.addEventListener('dragleave', function() {
-            imagePreviewContainer.classList.remove('dragover'); // CSSクラスでスタイル変更
+            imagePreviewContainer.classList.remove('dragover');
         });
 
-        // ドロップされた時 (実際にドロップされたときに呼ばれる)
+        // ドロップ処理
         imagePreviewContainer.addEventListener('drop', function(event) {
             event.preventDefault();
-            imagePreviewContainer.classList.remove('dragover'); // CSSクラスでスタイル変更
+            imagePreviewContainer.classList.remove('dragover');
 
-            const file = event.dataTransfer.files[0]; // ドロップしたファイルを取得
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    imagePreview.src = e.target.result;
-                    imagePreview.style.display = 'block';
-                    imagePreviewContainer.style.backgroundColor = 'transparent'; // プレビュー背景を透明に
-                    imageSelect.style.display = 'none'; // 画像が選択されたら「追加」ラベル非表示
-                };
-                reader.readAsDataURL(file);
-            }
+            const file = event.dataTransfer.files[0];
+            updateImagePreview(file);
         });
     });
 </script>
