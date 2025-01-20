@@ -222,7 +222,7 @@ class ReseController extends Controller
         return back();
     }
 
-    //レビュー一覧ページ
+    //口コミ一覧ページ
     public function reviewList($shop_id) {
         $shop = Shop::findOrFail($shop_id);
         $reviews = Review::where('shop_id', $shop_id)->with('user')->paginate(10);
@@ -231,7 +231,7 @@ class ReseController extends Controller
         return view('reviews.reviews_list', compact('shop', 'reviews', 'averageRating'));
     }
 
-    //レビュー投稿ページ
+    //口コミ投稿ページ
     public function createReview($shop_id) {
         $shop = Shop::findOrFail($shop_id);
 
@@ -241,7 +241,7 @@ class ReseController extends Controller
         return view('reviews.review', compact('shop', 'favorites'));
     }
     
-    //レビュー登録
+    //口コミ登録
     public function storeReview(ReviewRequest $request, $shop_id) {
         $user = Auth::user();
 
@@ -263,11 +263,13 @@ class ReseController extends Controller
         //$image_url = $request->file('image_url')->store('review_images', 's3', ['ACL' => 'public-read',]);
         //}
 
+        $comment = preg_replace("/\r\n|\r|\n/", "\n", $request->input('comment'));
+
         Review::create([
             'user_id' => $user->id,
             'shop_id' => $shop_id,
             'rating' => $request->input('rating'),
-            'comment' => $request->input('comment'),
+            'comment' => $comment, 
             //ローカル
             'image_url' => basename($image_url),
 
@@ -278,7 +280,7 @@ class ReseController extends Controller
         return redirect()->route('detail', ['shop_id' => $shop_id])->with('success', 'レビューが投稿されました');
     }
 
-    //レビュー更新ページ
+    //口コミ更新ページ
     public function editReview($shop_id) {
         $shop = Shop::findOrFail($shop_id);
         $user = Auth::user();
@@ -291,7 +293,7 @@ class ReseController extends Controller
         return view('reviews.edit_review', compact('shop', 'review', 'favorites'));
     }
 
-    //レビュー更新機能
+    //口コミ更新機能
     public function updateReview(ReviewRequest $request, $shop_id) {
         $user = Auth::user();
 
@@ -323,7 +325,7 @@ class ReseController extends Controller
         return redirect()->route('detail', ['shop_id' => $shop_id])->with('success', 'レビューが更新されました');
     }
 
-    //レビュー削除
+    //口コミ削除
     public function destroyReview($shop_id) {
         $user = Auth::user();
 

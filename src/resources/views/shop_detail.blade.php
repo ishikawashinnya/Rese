@@ -59,7 +59,7 @@
                     <form action="{{ route('reviews.destroy', ['shop_id' => $shop->id]) }}" method="POST" class="delete__form">
                         @csrf
                         @method('DELETE')
-                        <button class="delete__btn" type="submit" onclick="return confirm('レビューを削除しますか？')">口コミを削除</button>
+                        <button class="delete__btn" type="submit" onclick="return confirm('口コミを削除しますか？')">口コミを削除</button>
                     </form>
                 </div>
 
