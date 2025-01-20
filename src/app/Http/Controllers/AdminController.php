@@ -150,6 +150,7 @@ class AdminController extends Controller
 
     
     public function downloadCsv() {
+        $filePath = public_path('template/template.csv');
 
         if (!file_exists($filePath)) {
             return redirect()->back()->withErrors(['csv_error' => 'テンプレートファイルが見つかりません。']);
