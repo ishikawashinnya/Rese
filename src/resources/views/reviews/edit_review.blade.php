@@ -143,10 +143,13 @@
     document.addEventListener('DOMContentLoaded', function() {
         const textarea = document.getElementById('comment');
         const charCount = document.getElementById('charCount');
-        const maxLength = textarea.maxLength;
+        const maxLength = 400;
 
         function updateCharCount() {
-            const currentLength = textarea.value.length;
+            let cleanedComment = textarea.value;
+            cleanedComment = cleanedComment.replace(/\r\n|\r|\n/g, '\n');
+
+            const currentLength = cleanedComment.length;
             charCount.textContent = `${currentLength}/${maxLength}(最高文字数)`;
         }
 

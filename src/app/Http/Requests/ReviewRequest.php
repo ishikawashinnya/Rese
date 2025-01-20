@@ -25,7 +25,18 @@ class ReviewRequest extends FormRequest
     {
         return [
             'rating' => 'required',
-            'comment' => ['required', 'max:400'],
+            'comment' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    // 改行コードを統一してカウント
+                    $cleanedValue = str_replace(["\r\n", "\r"], "\n", $value);
+                    $length = mb_strlen($cleanedValue);
+
+                    if ($length > 400) {
+                        $fail('コメントは400文字以内で記入してください');
+                    }
+                },
+            ],
             'image_url' => ['file', 'mimes:jpeg,png']
         ];
     }
