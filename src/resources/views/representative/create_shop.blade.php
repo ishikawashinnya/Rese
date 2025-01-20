@@ -218,9 +218,8 @@
         const detailDescription = document.getElementById('detail__description');
 
         descriptionTextarea.addEventListener('input', function () {
-            detailDescription.textContent = descriptionTextarea.value || '説明文';
+            detailDescription.innerHTML = descriptionTextarea.value.replace(/\n/g, '<br>') || '説明文';
         })
-
 
         // 文字数カウントの更新
         const textarea = document.getElementById('description');

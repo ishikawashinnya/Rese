@@ -34,7 +34,7 @@
         </div>
 
         <div class="shop__description {{ $review ? 'small' : '' }}">
-            <p>{{ $shop->description }}</p>
+            <p>{!! nl2br(e($shop->description)) !!}</p>
         </div>
 
         <div class="review">
