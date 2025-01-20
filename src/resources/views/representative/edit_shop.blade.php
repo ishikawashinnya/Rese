@@ -175,7 +175,7 @@
                         <p id="detail__genre">#{{ old('genre_id', $shop->genre->name) }}</p>
                     </div>
                     <div class="shop__description">
-                        <p id="detail__description">{{ old('description', $shop->description) }}</p>
+                        <p id="detail__description">{!! nl2br(e(old('description', $shop->description))) !!}</p>
                     </div>
                 </div>
             </div>
@@ -221,10 +221,9 @@
         const descriptionTextarea = document.getElementById('description');
         const detailDescription = document.getElementById('detail__description');
 
-        descriptionTextarea.addEventListener('input', function () {
-            detailDescription.textContent = descriptionTextarea.value || '説明文';
+        descriptionTextarea.addEventListener('input', function() {
+            detailDescription.innerHTML = descriptionTextarea.value.replace(/\n/g, '<br>') || '説明文';
         })
-
 
         // 文字数カウントの更新
         const textarea = document.getElementById('description');
