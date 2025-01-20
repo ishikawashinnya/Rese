@@ -103,7 +103,8 @@ Laravel Framework 8.x、PHP7.4.9、MySQL8.0.26、JavaScript、stripe
 1.管理者でログイン  
 2.マイページの新規店舗追加(CSV)ページへ移動  
 3.CSVファイルを作成し、選択  
-(新規店舗追加(CSV)ページでテンプレートCSVファイルのダウンロードができます。)  
+(新規店舗追加(CSV)ページでテンプレートCSVファイルのダウンロードができます)  
+[テンプレートCSVファイル](https://github.com/ishikawashinnya/Rese/blob/main/img/csv_template.csv)←こちらのリンクをクリック後、右上の"Download raw file"ボタンでもダウンロード出来ます  
 4.インポートボタンをクリック
 
 ## URL
