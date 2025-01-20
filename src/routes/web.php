@@ -80,6 +80,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/importpage', [AdminController::class, 'importPage'])->name('importpage');
     Route::post('/csv/upload', [AdminController::class, 'importCsv'])->name('csv.import');
     Route::get('/download/csvtemplate', [AdminController::class, 'downloadCsv'])->name('csv.download');
+    Route::get('/shoplist', [AdminController::class, 'shopList'])->name('shoplist');
+    Route::delete('shops/{shop_id}/reviews/{review_id}', [AdminController::class, 'destroyUserReview'])->name('userreview.destroy');
 });
 
 //Representative Routes

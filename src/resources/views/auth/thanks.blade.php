@@ -10,12 +10,12 @@
         <div class="content__message">
             <p class="message">ご登録ありがとうございます</p>
         </div>
-        
+
         <div class="content__link">
             <a class="link__btn" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 ログインする
             </a>
         </div>
-    </div>  
+    </div>
 </div>
 @endsection

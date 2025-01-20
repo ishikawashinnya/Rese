@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use Spatie\Permission\Models\Role;
 use App\Http\Requests\RegisterRequest;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Shop;
 use App\Models\Area;
 use App\Models\Genre;
+use App\Models\User;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Review;
 
 class AdminController extends Controller
 {
@@ -148,8 +148,8 @@ class AdminController extends Controller
         $shop->save();
     }
 
+    
     public function downloadCsv() {
-        $filePath = storage_path('app/public/template/csv_template.csv');
 
         if (!file_exists($filePath)) {
             return redirect()->back()->withErrors(['csv_error' => 'テンプレートファイルが見つかりません。']);
@@ -158,5 +158,23 @@ class AdminController extends Controller
         return response()->download($filePath, 'csv_template.csv', [
             'Content-Type' => 'text/csv',
         ]);
+    }
+
+    public function shopList() {
+        $user = Auth::user();
+        $shops = Shop::paginate(20);
+
+        return view('admin.shop_list', compact('user', 'shops'));
+    }
+
+    public function destroyUserReview($shop_id, $review_id) {
+        $review = Review::where('shop_id', $shop_id)->where('id', $review_id)->firstOrFail();
+        if ($review->image_url) {
+            Storage::disk('public')->delete('review_images/' . $review->image_url);
+        }
+
+        $review->delete();
+
+        return redirect()->route('reviews.list', ['shop_id' => $shop_id])->with('success', 'レビューが削除されました');
     }
 }

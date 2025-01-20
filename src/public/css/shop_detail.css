@@ -1,4 +1,4 @@
-.shop_detail-content,
+.shop__detail-content,
 .reservation_edit-content {
     width: 100%;
     display: flex;
@@ -11,6 +11,7 @@
     background-color: #eeeeee;
     font-weight: bold;
     margin-left: 1%;
+    margin-top: -2%;
 }
 
 .left__header {
@@ -21,7 +22,7 @@
 }
 
 .content__left-ttl {
-    width: 50%;
+    width: 100%;
     display: flex;
     align-items: center;
 }
@@ -57,7 +58,8 @@
 }
 
 .shop__name {
-    font-size: 28px;
+    width: 90%;
+    font-size: clamp(14px, 1.5vw, 28px);
     margin-left: 3%;
 }
 
@@ -230,7 +232,7 @@
     width: 45%;
     background-color: #eeeeee;
     position: absolute;
-    top: -10%;
+    top: -12%;
     left: 52%;
     margin-right: 1%;
 }
@@ -294,15 +296,25 @@
     color: #fff;
 }
 
+.reservation__confirmation-table {
+    width: 100%;
+}
+
 .reservation__confirmation-ttl {
-    padding-left: 20px;
-    padding-top: 7%;
+    width: 25%;
+    padding-left: 3%;
+    padding-top: 1%;
+    padding-bottom: 4%;
     text-align: left;
+    font-size: clamp(9px, 1vw, 15px);
 }
 
 .reservation__confirmation td {
-    padding-left: 40px;
-    padding-top: 7%;
+    width: 65%;
+    padding-left: 5%;
+    padding-top: 1%;
+    padding-bottom: 4%;
+    font-size: clamp(10px, 1vw, 16px);
 }
 
 .reservation__form-btn {
@@ -313,7 +325,7 @@
     text-align: center;
     border: 1px solid #003ff5;
     border-radius: 0 0 7px 7px;
-    margin-top: 40%;
+    margin-top: 35%;
 }
 
 .post__form {
@@ -336,8 +348,18 @@
     color: #fff;
 }
 
+.alert {
+    width: 100%;
+}
+
+.alert__success {
+    font-size: clamp(12px, 2vw, 18px);
+    font-weight: bold;
+    color: #32CD32;
+}
+
 @media screen and (max-width: 768px) {
-    .shop_detail-content {
+    .shop__detail-content {
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -350,22 +372,33 @@
         font-weight: bold;
         margin-right: 1%;
     }
-    
-    .review__buttons {
-        width: 40%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+
+    .shop__description {
+        width: 100%;
+        font-size: 18px;
     }
-    
-    .review__link:first-child {
-        margin-right: 3%;
+
+    .shop__description.small {
+        width: 100%;
+        font-size: 16px;
+        margin-bottom: 8%;
     }
-    
-    .review__link-button {
-        text-decoration: none;
-        color: #fff;
-        font-size: clamp(12px, 2vw, 24px);
+
+    .user__comment {
+        width: 100%;
+        margin-top: 0%;
+        padding-bottom: 3%;
+        font-size: 16px;
+    }
+
+    .my__review::after {
+        position: static;
+        content: '';
+        bottom: 0px;
+        left: 0%;
+        width: 0%;
+        height: 0px;
+        background-color: #ccc;
     }
     
     .content__right {
@@ -373,6 +406,22 @@
         background-color: #eeeeee;
         margin-top: 5%;
         margin-right: 1%;
-        position: relative;
+        position: static;
+    }
+
+    .reservation__confirmation-ttl {
+        width: 35%;
+        padding-left: 3%;
+        padding-top: 1%;
+        padding-bottom: 4%;
+        text-align: left;
+        font-size: clamp(14px, 2vw, 20px);
+    }
+    
+    .reservation__confirmation td {
+        width: 62%;
+        padding-top: 1%;
+        padding-bottom: 4%;
+        font-size: clamp(14px, 2vw, 20px);
     }
 }

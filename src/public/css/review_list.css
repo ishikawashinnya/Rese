@@ -292,16 +292,33 @@
     margin-left: 1%;
 }
 
+.delete__form {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-bottom: 2%;
+}
+
+.delete__btn {
+    padding: 4px 8px;
+    border: none;
+    background-color: #FF5555;
+    cursor: pointer;
+    border: solid 1px #FF5555;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 12px;
+}
+
 .user__comment {
     width: 50%;
-    
 }
 
 .user__review-img {
     width: 31%;
     height: 100%;
     margin-left: 1%;
-    
 }
 
 .review__image {
@@ -379,15 +396,22 @@
     width: 100%;
 }
 
+.alert__success {
+    margin-left: 5%;
+    font-size: clamp(10px, 1vw, 16px);
+    font-weight: bold;
+    color: #32CD32;
+}
+
 @media screen and (max-width: 768px) { 
      
     .header__ttl {
         margin-left: 2%;
-        font-size: clamp(11px, 2vw, 16px);
+        font-size: clamp(10px, 2vw, 16px);
     }
     
     .header__group {
-        width: 30%;
+        width: 60%;
         display: flex;
         align-items: center;
     }
@@ -411,8 +435,33 @@
         align-items: center;
     }
 
+        .rating__average {
+            width: 30%;
+        }
+
+                .number__rating {
+                    font-size: clamp(12px, 2vw, 16px);
+                    font-weight: bold;
+                }
+
     .user__rating {
         margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .star5__rating {
+        position: relative;
+        z-index: 0;
+        display: inline-block;
+        white-space: nowrap;
+        color: #cccccc;
+        font-size: clamp(14px, 2vw, 16px);
+    }
+    
+    .star5__rating:before,
+    .star5__rating:after {
+        content: '★★★★★';
+        font-size: clamp(14px, 2vw, 16px);
     }
     
     .user__comment {
@@ -439,5 +488,12 @@
         background-color: #FEFEFE;
         max-width: 90%;
         max-height: 90%;
+    }
+
+    .alert__success {
+        margin-left: 5%;
+        font-size: clamp(8px, 1.5vw, 12px);
+        font-weight: bold;
+        color: #32CD32;
     }
 }
