@@ -100,7 +100,7 @@
                 <div class="review__image">
                     <label class="review__image-ttl">画像の追加</label>
                     <div class="image__preview" id="imagePreviewContainer">
-                        <img id='imagePreview' src="{{ asset('storage/review_images/' . $review->image_url) }}" alt="" class="image__preview-field" style="display: {{ $review->image_url ? 'block' : 'none' }};">
+                        <img id='imagePreview' src="{{ asset('storage/review_images/' . $review->image_url) }}" alt="{{ $review->image_url }}" class="image__preview-field" style="display: {{ $review->image_url ? 'block' : 'none' }};">
                         <div class="image__select">
                             <label for="image" class="image__select-label">
                                 クリックして写真を追加</br>
