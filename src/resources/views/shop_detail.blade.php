@@ -40,9 +40,9 @@
         <div class="review">
             @if (Auth::check())
             <!-- レビュー未投稿の場合 -->
-            @if ($postReview && !$posted)
+            @if (!$posted)
             <div class="review__create-link">
-                <a href="{{ route('reviews.create', ['shop_id' => $shop->id]) }}" class="create__link-button">口コミを投稿する
+                <a href="{{ route('reviews.create', ['shop_id' => $shop->id]) }}" class="create__link-button">口コミを投稿する</a>
             </div>
             @endif
             @endif

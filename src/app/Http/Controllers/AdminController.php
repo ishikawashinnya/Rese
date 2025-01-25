@@ -49,10 +49,25 @@ class AdminController extends Controller
             $path = $file->getRealPath();
             $fp = fopen($path, 'r');
 
-            $validRows = [];
-            $rowNumber = 0;
+            if (($fp = fopen($path, 'r')) === false) {
+                return redirect()->back()->withErrors(['csv_error' => 'CSVファイルを開けませんでした。ファイルを確認してください'])->withInput();
+            }
 
-            fgetcsv($fp);
+            $validRows = [];
+            $rowNumber = 1;
+
+            $header = fgetcsv($fp);
+
+            if (count($header) !==6) {
+                fclose($fp);
+                return redirect()->back()->withErrors(['csv_error' => 'CSVファイルの1行目は、店舗名、ジャンル、エリア、住所、店舗説明、画像URLの6項目での作成が必要です。'])->withInput();
+            }
+
+            $expectedHeaders = ['店舗名', 'ジャンル', 'エリア', '住所', '店舗説明', '画像URL'];
+            if ($header !== $expectedHeaders) {
+                fclose($fp);
+                return redirect()->back()->withErrors(['csv_error' => 'CSVファイルの1行目の項目名は、店舗名、ジャンル、エリア、住所、店舗説明、画像URLで、この順番で作成して下さい。'])->withInput();
+            }
 
             try {
                 while (($csvData = fgetcsv($fp)) !== FALSE) {
@@ -61,7 +76,7 @@ class AdminController extends Controller
                     if ($this->isRowEmpty($csvData)) {
                         continue;
                     }
-                    $this->validateCsvData($csvData);
+                    $this->validateCsvData($csvData, $rowNumber);
                     $validRows[] = $csvData;
                 }
                 fclose($fp);
@@ -92,7 +107,7 @@ class AdminController extends Controller
         }));
     }
 
-    public function validateCsvData($csvData) {
+    public function validateCsvData($csvData, $rowNumber) {
         $validator = Validator::make([
             '店舗名' => $csvData[0],
             'ジャンル' => $csvData[1],
@@ -108,18 +123,18 @@ class AdminController extends Controller
             '店舗説明' => 'required|max:400',
             '画像URL' => ['required', 'url', 'regex:/\.(jpg|png)$/i'],
         ], [
-            '店舗名.required' => '店舗名を50文字以内で入力してください',
-            '店舗名.max' => '店舗名を50文字以内で入力してください',
-            'ジャンル.required' => 'ジャンルは「寿司」「焼肉」「居酒屋」「イタリアン」「ラーメン」のいずれかを入力してください',
-            'ジャンル.exists' => 'ジャンルは「寿司」「焼肉」「居酒屋」「イタリアン」「ラーメン」のいずれかを入力してください',
-            'エリア.required' => 'エリアは「東京都」「大阪府」「福岡県」のいずれかを入力してください',
-            'エリア.exists' => 'エリアは「東京都」「大阪府」「福岡県」のいずれかを入力してください',
-            '住所.required' => '住所を入力してください',
-            '店舗説明.required' => '店舗説明を400文字以内で入力してください',
-            '店舗説明.max' => '店舗説明を400文字以内で入力してください',
-            '画像URL.required' => '画像URLは、「jpeg」「png」のみ使用可能です',
-            '画像URL.url' => '画像URLは、「jpeg」「png」のみ使用可能です',
-            '画像URL.regex' => '画像URLは、「jpeg」「png」のみ使用可能です',
+            '店舗名.required' => " {$rowNumber} 行目で、店舗名が入力されていません。店舗名を50文字以内で入力してください。",
+            '店舗名.max' => " {$rowNumber} 行目で、店舗名が長すぎます。店舗名を50文字以内で入力してください。",
+            'ジャンル.required' => " {$rowNumber} 行目で、ジャンルが入力されていません。ジャンルは「寿司」「焼肉」「居酒屋」「イタリアン」「ラーメン」のいずれかを入力してください。",
+            'ジャンル.exists' => " {$rowNumber} 行目で、ジャンルが無効です。ジャンルは「寿司」「焼肉」「居酒屋」「イタリアン」「ラーメン」のいずれかを入力してください。",
+            'エリア.required' => " {$rowNumber} 行目で、エリアが入力されていません。エリアは「東京都」「大阪府」「福岡県」のいずれかを入力してください。",
+            'エリア.exists' => " {$rowNumber} 行目で、エリア名が無効です。エリアは「東京都」「大阪府」「福岡県」のいずれかを入力してください。",
+            '住所.required' => " {$rowNumber} 行目で、住所が入力されていません。",
+            '店舗説明.required' => " {$rowNumber} 行目で、店舗説明が入力されていません。店舗説明を400文字以内で入力してください。",
+            '店舗説明.max' => " {$rowNumber} 行目で、説明文が長すぎます。店舗説明を400文字以内で入力してください。",
+            '画像URL.required' => " {$rowNumber} 行目で、画像URLが入力されていません。画像URLを入力してください、画像URLは、「jpeg」「png」のみ使用可能です",
+            '画像URL.url' => " {$rowNumber} 行目で画像URLの形式が正しくありません。URL形式で入力してください、画像URLは、「jpeg」「png」のみ使用可能です。",
+            '画像URL.regex' => " {$rowNumber} 行目で、画像URLが無効です。画像URLは、「jpeg」「png」のみ使用可能です。",
         ]);
 
         if ($validator->fails()) {

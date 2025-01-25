@@ -84,7 +84,6 @@ class ReseController extends Controller
         $minDate = $today->format('Y-m-d');
 
         $user = Auth::user();
-        $postReview = false;
         $posted = false;
         $review = null;
 
@@ -92,10 +91,6 @@ class ReseController extends Controller
             $reservation = Reservation::where('user_id', $user->id)
                                       ->where('shop_id', $shop_id)
                                       ->first();
-
-            if ($reservation && $reservation->status === '来店済み') {
-                $postReview = true;
-            }
 
             $review = Review::where('user_id', $user->id)
                             ->where('shop_id', $shop_id)
@@ -106,7 +101,7 @@ class ReseController extends Controller
             }
         }
 
-        return view('shop_detail', compact('shop', 'minDate', 'postReview', 'posted', 'review'));
+        return view('shop_detail', compact('shop', 'minDate', 'posted', 'review'));
     }
 
     //マイページ
@@ -254,14 +249,32 @@ class ReseController extends Controller
         //ローカル
         $image_url = null;
         if ($request->hasFile('image_url')) {
-            $image_url = $request->file('image_url')->store('review_images', 'public');
+            $file = $request->file('image_url');
+
+            $originalName = preg_replace('/[^a-zA-Z0-9._-]/', '_', $file->getClientOriginalName());
+            $timestamp = now()->format('YmdHis');
+            $filename = $timestamp . '_' . $originalName;
+
+            $directory = storage_path('app/public/review_images');
+            if (!is_dir($directory)) {
+                mkdir($directory, 0777, true);
+            }
+
+            $file->storeAs('review_images', $filename, 'public');
+            $image_url = $filename;
         }
 
-        //s3
-        //$image_url = null;
-        //if ($request->hasFile('image_url')) {
-        //$image_url = $request->file('image_url')->store('review_images', 's3', ['ACL' => 'public-read',]);
-        //}
+        /*s3
+        $image_url = null;
+        if ($request->hasFile('image_url')) {
+            $file = $request->file('image_url')
+            $originalName =preg_replace('/[^a-zA-Z0-9._-]/', '_', $file->getClientOriginalName());
+            $timestamp = now()->format('YmdHis');
+            $filename = $timestamp . '_' . $originalName;
+            
+            $file->storeAs('review_images', 's3', ['ACL' => 'public-read',]);
+            $image_url = Storage::disk('s3')->url('review_images/' . $filename);
+        }*/
 
         $comment = preg_replace("/\r\n|\r|\n/", "\n", $request->input('comment'));
 
@@ -271,7 +284,7 @@ class ReseController extends Controller
             'rating' => $request->input('rating'),
             'comment' => $comment, 
             //ローカル
-            'image_url' => basename($image_url),
+            'image_url' => $image_url,
 
             //s3
             //'image_url' => $image_url ? Storage::disk('s3')->url($image_url) : null,
@@ -306,15 +319,26 @@ class ReseController extends Controller
             if ($review->image_url) {
                 Storage::disk('public')->delete('review_images/' . $review->image_url);
             }
-            $image_url = $request->file('image_url')->store('review_images', 'public');
-            $review->image_url = basename($image_url);
+            $file = $request->file('image_url');
+
+            $originalName = preg_replace('/[^a-zA-Z0-9._-]/', '_', $file->getClientOriginalName());
+            $timestamp = now()->format('YmdHis');
+            $filename = $timestamp . '_' . $originalName;
+
+            $file->storeAs('review_images', $filename, 'public');
+            $review->image_url = $filename;
         }
 
-        //s3
-        //if ($request->hasFile('image_url')) {
-                //$image_url = $request->file('image_url')->store('review_images', 's3');
-                //$review->image_url = Storage::disk('s3')->url($image_url);
-        //}
+        /*s3
+        if ($request->hasFile('image_url')) {
+            $file = $request->file('image_url')
+            $originalName =preg_replace('/[^a-zA-Z0-9._-]/', '_', $file->getClientOriginalName());
+            $timestamp = now()->format('YmdHis');
+            $filename = $timestamp . '_' . $originalName;
+            
+            $file->storeAs('review_images', 's3', ['ACL' => 'public-read',]);
+            $image_url = Storage::disk('s3')->url('review_images/' . $filename);
+        }*/
 
         $review->update([
             'rating' => $request->input('rating'),
