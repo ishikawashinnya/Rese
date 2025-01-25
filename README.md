@@ -1,7 +1,7 @@
 # Rese
 飲食店予約アプリです。  
 会員登録無しで、店舗情報と口コミを見ることが出来ます。  
-会員登録すると、予約・お気に入り追加機能、来店後の口コミ投稿が出来ます。  
+会員登録すると、予約・お気に入り追加機能、口コミ投稿が出来ます。  
 管理者は店舗代表者作成が出来ます。  
 店舗代表者は店舗情報の作成・編集が出来ます。  
 ![RESEtop](https://github.com/user-attachments/assets/67f7505d-af60-4b7f-bbac-83570cce13bf)
@@ -91,8 +91,7 @@ Laravel Framework 8.x、PHP7.4.9、MySQL8.0.26、JavaScript、stripe
 1.管理者　email : admin@example.com　　password : testadmin  
 2.店舗代表者　email : shoprep@example.com　　password : testshoprep  
 3.テストユーザー　email : test@example.com　　password : testuser  
-※店舗代表者は店舗名：仙人の代表者として設定しています。  
-※テストユーザーのレビュー投稿は店舗名：仙人で行えます。  
+※店舗代表者は店舗名：仙人の代表者として設定しています。    
 ## 店舗新規作成方法
 ### 店舗代表者が作成
 1.管理者でログイン  
